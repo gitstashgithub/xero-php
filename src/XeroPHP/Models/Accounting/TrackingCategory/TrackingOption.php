@@ -33,7 +33,7 @@ class TrackingOption extends Remote\Object
      */
     public static function getResourceURI()
     {
-        return 'TrackingOptions';
+        return 'Options';
     }
 
 
@@ -44,7 +44,7 @@ class TrackingOption extends Remote\Object
      */
     public static function getRootNodeName()
     {
-        return 'TrackingOption';
+        return 'Option';
     }
 
 
