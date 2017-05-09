@@ -114,7 +114,9 @@ class TrackingCategory extends Remote\Object
             'Name' => [false, self::PROPERTY_TYPE_STRING, null, false, false],
             'Status' => [false, self::PROPERTY_TYPE_STRING, null, false, false],
             'Options' => [false, self::PROPERTY_TYPE_OBJECT, 'Accounting\\TrackingCategory\\TrackingOption', true, true],
-            'Option' => [false, self::PROPERTY_TYPE_STRING, null, false, true]
+            'Option' => [false, self::PROPERTY_TYPE_STRING, null, false, true],
+            'TrackingCategoryName' => array (false, self::PROPERTY_TYPE_STRING, null, false, false),
+            'TrackingOptionName' => array (false, self::PROPERTY_TYPE_STRING, null, false, false),
         ];
     }
 
