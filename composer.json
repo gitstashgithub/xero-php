@@ -4,6 +4,7 @@
     "description": "A client implementation of the Xero API, with a cleaner OAuth interface and ORM-like abstraction.",
     "homepage": "https://github.com/calcinai/xero-php",
     "license": "MIT",
+    "minimum-stability": "dev",
 
     "require": {
         "php": ">=5.5.0",
