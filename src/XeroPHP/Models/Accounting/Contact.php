@@ -794,6 +794,16 @@ class Contact extends Remote\Object
     }
 
     /**
+     * @return Contact
+     */
+    public function removeSalesTrackingCategories()
+    {
+        $this->setDirty('SalesTrackingCategories');
+        $this->_data['SalesTrackingCategories'] = new Remote\Collection();
+        return $this;
+    }
+
+    /**
      * @return TrackingCategory[]|Remote\Collection
      * Always returns a collection, switch is for type hinting
      */
@@ -813,6 +823,15 @@ class Contact extends Remote\Object
             $this->_data['PurchasesTrackingCategories'] = new Remote\Collection();
         }
         $this->_data['PurchasesTrackingCategories'][] = $value;
+        return $this;
+    }
+
+    /**
+     * @return Contact
+     */
+    public function removePurchasesTrackingCategories(){
+        $this->setDirty('PurchasesTrackingCategories');
+        $this->_data['PurchasesTrackingCategories'] = new Remote\Collection();
         return $this;
     }
 
