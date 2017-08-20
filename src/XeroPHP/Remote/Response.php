@@ -71,9 +71,13 @@ class Response
             case Response::STATUS_BAD_REQUEST:
                 //This catches actual app errors
                 if (isset($this->root_error)) {
-                    $message = sprintf('%s (%s)', $this->root_error['message'], implode(', ', $this->element_errors));
+                    $message = sprintf('%s (%s)',
+                        array_key_exists('message', $this->root_error) ? $this->root_error['message'] : 'no-root-error',
+                        implode(', ', $this->element_errors)
+                    );
                     $message .= $this->parseBadRequest();
-                    throw new BadRequestException($message, $this->root_error['code']);
+                    throw new BadRequestException($message,
+                        array_key_exists('message', $this->root_error) ? $this->root_error['code'] : null);
                 } else {
                     throw new BadRequestException();
                 }
