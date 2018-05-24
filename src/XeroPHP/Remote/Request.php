@@ -98,6 +98,8 @@ class Request
             curl_setopt($ch, CURLOPT_POST, true);
         }
 
+        // Minute Limit: 60 calls in a rolling 60 second window
+        sleep(1);
         $response = curl_exec($ch);
         $info = curl_getinfo($ch);
 
