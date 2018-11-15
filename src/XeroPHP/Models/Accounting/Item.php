@@ -5,7 +5,7 @@ use XeroPHP\Remote;
 use XeroPHP\Models\Accounting\Item\Purchase;
 use XeroPHP\Models\Accounting\Item\Sale;
 
-class Item extends Remote\Object
+class Item extends Remote\Model
 {
 
     /**
@@ -357,14 +357,20 @@ class Item extends Remote\Object
     /**
      * @param Purchase $value
      * @return Item
+     * @deprecated
      */
     public function addPurchaseDetail(Purchase $value)
     {
+    }
+
+    /**
+     * @param Purchase $value
+     * @return Item
+     */
+    public function setPurchaseDetails(Purchase $value)
+    {
         $this->propertyUpdated('PurchaseDetails', $value);
-        if (!isset($this->_data['PurchaseDetails'])) {
-            $this->_data['PurchaseDetails'] = new Remote\Collection();
-        }
-        $this->_data['PurchaseDetails'][] = $value;
+        $this->_data['PurchaseDetails'] = $value;
         return $this;
     }
 
@@ -380,14 +386,20 @@ class Item extends Remote\Object
     /**
      * @param Sale $value
      * @return Item
+     * @deprecated
      */
     public function addSalesDetail(Sale $value)
     {
+    }
+
+    /**
+     * @param Sale $value
+     * @return Item
+     */
+    public function setSalesDetails(Sale $value)
+    {
         $this->propertyUpdated('SalesDetails', $value);
-        if (!isset($this->_data['SalesDetails'])) {
-            $this->_data['SalesDetails'] = new Remote\Collection();
-        }
-        $this->_data['SalesDetails'][] = $value;
+        $this->_data['SalesDetails'] = $value;
         return $this;
     }
 

@@ -3,13 +3,14 @@ namespace XeroPHP\Models\PayrollAU;
 
 use XeroPHP\Remote;
 use XeroPHP\Models\PayrollAU\Employee\HomeAddress;
+use XeroPHP\Models\PayrollAU\Employee\TaxDeclaration;
 use XeroPHP\Models\PayrollAU\Employee\BankAccount;
 use XeroPHP\Models\PayrollAU\Employee\PayTemplate;
 use XeroPHP\Models\PayrollAU\Employee\OpeningBalance;
 use XeroPHP\Models\PayrollAU\Employee\LeaveBalance;
 use XeroPHP\Models\PayrollAU\Employee\SuperMembership;
 
-class Employee extends Remote\Object
+class Employee extends Remote\Model
 {
 
     /**
@@ -278,6 +279,7 @@ class Employee extends Remote\Object
             'Email' => [false, self::PROPERTY_TYPE_STRING, null, false, false],
             'Gender' => [false, self::PROPERTY_TYPE_STRING, null, false, false],
             'Mobile' => [false, self::PROPERTY_TYPE_STRING, null, false, false],
+            'Phone' => [false, self::PROPERTY_TYPE_STRING, null, false, false],
             'TwitterUserName' => [false, self::PROPERTY_TYPE_STRING, null, false, false],
             'IsAuthorisedToApproveLeave' => [false, self::PROPERTY_TYPE_BOOLEAN, null, false, false],
             'IsAuthorisedToApproveTimesheets' => [false, self::PROPERTY_TYPE_BOOLEAN, null, false, false],
@@ -295,7 +297,8 @@ class Employee extends Remote\Object
             'TerminationDate' => [false, self::PROPERTY_TYPE_DATE, '\\DateTimeInterface', false, false],
             'EmployeeID' => [false, self::PROPERTY_TYPE_STRING, null, false, false],
             'Status' => [false, self::PROPERTY_TYPE_ENUM, null, false, false],
-            'UpdatedDateUTC' => [false, self::PROPERTY_TYPE_TIMESTAMP, '\\DateTimeInterface', false, false]
+            'UpdatedDateUTC' => [false, self::PROPERTY_TYPE_TIMESTAMP, '\\DateTimeInterface', false, false],
+            'TaxDeclaration' => [false, self::PROPERTY_TYPE_OBJECT, 'PayrollAU\\Employee\\TaxDeclaration', false, false]
         ];
     }
 
@@ -853,6 +856,45 @@ class Employee extends Remote\Object
         $this->_data['UpdatedDateUTC'] = $value;
         return $this;
     }
+
+    /**
+     * @return TaxDeclaration
+     */
+    public function getTaxDeclaration()
+    {
+        return $this->_data['TaxDeclaration'];
+    }
+
+    /**
+     * @param TaxDeclaration $value
+     * @return Employee
+     */
+    public function setTaxDeclaration(TaxDeclaration $value)
+    {
+        $this->propertyUpdated('TaxDeclaration', $value);
+        $this->_data['TaxDeclaration'] = $value;
+        return $this;
+    }
+
+
+    /**
+     * @return string
+     */
+    public function getPhone()
+    {
+        return $this->_data['Phone'];
+    }
+
+    /**
+     * @param string $value
+     * @return Employee
+     */
+    public function setPhone($value)
+    {
+        $this->propertyUpdated('Phone', $value);
+        $this->_data['Phone'] = $value;
+        return $this;
+    }    
 
 
 }

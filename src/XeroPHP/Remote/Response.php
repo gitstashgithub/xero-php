@@ -70,7 +70,7 @@ class Response
         switch ($this->status) {
             case Response::STATUS_BAD_REQUEST:
                 //This catches actual app errors
-                if (isset($this->root_error)) {
+                if (isset($this->root_error) && !empty($this->root_error)) {
                     $message = sprintf('%s (%s)',
                         array_key_exists('message', $this->root_error) ? $this->root_error['message'] : 'no-root-error',
                         implode(', ', $this->element_errors)
@@ -120,7 +120,7 @@ class Response
      */
     private function parseBadRequest()
     {
-        if (isset($this->elements)) {
+        if (!empty($this->elements)) {
             $field_errors = [];
             foreach ($this->elements as $n => $element) {
                 if (isset($element['ValidationErrors'])) {
@@ -129,7 +129,17 @@ class Response
             }
             return "\nValidation errors:\n".implode("\n", $field_errors);
         }
+
+        if (isset($this->oauth_response['oauth_problem_advice'])) {
+            throw new UnauthorizedException($this->oauth_response['oauth_problem_advice']);
+        }
+
         return '';
+    }
+
+    public function getStatus()
+    {
+        return $this->status;
     }
 
     public function getResponseBody()
