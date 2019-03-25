@@ -1,4 +1,5 @@
 <?php
+
 namespace XeroPHP\Models\PayrollUS\Employee;
 
 use XeroPHP\Remote;
@@ -6,7 +7,6 @@ use XeroPHP\Models\PayrollUS\PayItem;
 
 class TimeOffBalance extends Remote\Model
 {
-
     /**
      * The name of the leave type
      *
@@ -26,7 +26,7 @@ class TimeOffBalance extends Remote\Model
      */
 
     /**
-     * The type of units as specified by the LeaveType (see PayItems)
+     * The type of units as specified by the LeaveType (see PayItems)
      *
      * @property PayItem[] TypeOfUnits
      */
@@ -192,7 +192,7 @@ class TimeOffBalance extends Remote\Model
     public function addTypeOfUnit(PayItem $value)
     {
         $this->propertyUpdated('TypeOfUnits', $value);
-        if (!isset($this->_data['TypeOfUnits'])) {
+        if (! isset($this->_data['TypeOfUnits'])) {
             $this->_data['TypeOfUnits'] = new Remote\Collection();
         }
         $this->_data['TypeOfUnits'][] = $value;
@@ -217,6 +217,4 @@ class TimeOffBalance extends Remote\Model
         $this->_data['EmployeeID'] = $value;
         return $this;
     }
-
-
 }

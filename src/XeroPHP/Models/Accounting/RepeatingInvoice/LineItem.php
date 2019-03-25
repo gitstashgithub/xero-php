@@ -1,4 +1,5 @@
 <?php
+
 namespace XeroPHP\Models\Accounting\RepeatingInvoice;
 
 use XeroPHP\Remote;
@@ -6,7 +7,6 @@ use XeroPHP\Models\Accounting\TrackingCategory;
 
 class LineItem extends Remote\Model
 {
-
     /**
      * Description needs to be at least 1 char long. A line item with just a description (i.e no unit
      * amount or quantity) can be created by specifying just a <Description> element that contains at least
@@ -144,6 +144,7 @@ class LineItem extends Remote\Model
     public static function getProperties()
     {
         return [
+            'LineItemID' => [false, self::PROPERTY_TYPE_STRING, null, false, false],
             'Description' => [false, self::PROPERTY_TYPE_STRING, null, false, false],
             'Quantity' => [false, self::PROPERTY_TYPE_STRING, null, false, false],
             'UnitAmount' => [false, self::PROPERTY_TYPE_FLOAT, null, false, false],
@@ -330,7 +331,7 @@ class LineItem extends Remote\Model
     public function addTracking(TrackingCategory $value)
     {
         $this->propertyUpdated('Tracking', $value);
-        if (!isset($this->_data['Tracking'])) {
+        if (! isset($this->_data['Tracking'])) {
             $this->_data['Tracking'] = new Remote\Collection();
         }
         $this->_data['Tracking'][] = $value;
@@ -355,6 +356,4 @@ class LineItem extends Remote\Model
         $this->_data['DiscountRate'] = $value;
         return $this;
     }
-
-
 }

@@ -1,11 +1,11 @@
 <?php
+
 namespace XeroPHP\Models\PayrollAU\PayItem;
 
 use XeroPHP\Remote;
 
 class DeductionType extends Remote\Model
 {
-
     /**
      * Name of the deduction type (max length = 50)
      *
@@ -214,6 +214,4 @@ class DeductionType extends Remote\Model
         $this->_data['DeductionTypeID'] = $value;
         return $this;
     }
-
-
 }

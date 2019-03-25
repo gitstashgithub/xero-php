@@ -1,11 +1,11 @@
 <?php
+
 namespace XeroPHP\Models\PayrollUS;
 
 use XeroPHP\Remote;
 
 class PayRun extends Remote\Model
 {
-
     /**
      * Xero Identifier for the Pay Schedule
      *
@@ -315,7 +315,4 @@ class PayRun extends Remote\Model
     {
         return $this->_data['PayStubs'];
     }
-
-
-
 }

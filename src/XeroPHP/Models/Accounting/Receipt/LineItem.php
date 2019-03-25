@@ -1,4 +1,5 @@
 <?php
+
 namespace XeroPHP\Models\Accounting\Receipt;
 
 use XeroPHP\Remote;
@@ -6,7 +7,6 @@ use XeroPHP\Models\Accounting\TrackingCategory;
 
 class LineItem extends Remote\Model
 {
-
     /**
      * Description needs to be at least 1 char long. A line item with just a description (i.e no unit
      * amount or quantity) can be created by specifying just a <Description> element that contains at least
@@ -300,7 +300,7 @@ class LineItem extends Remote\Model
     public function addTracking(TrackingCategory $value)
     {
         $this->propertyUpdated('Tracking', $value);
-        if (!isset($this->_data['Tracking'])) {
+        if (! isset($this->_data['Tracking'])) {
             $this->_data['Tracking'] = new Remote\Collection();
         }
         $this->_data['Tracking'][] = $value;
@@ -314,7 +314,4 @@ class LineItem extends Remote\Model
     {
         return $this->_data['DiscountRate'];
     }
-
-
-
 }

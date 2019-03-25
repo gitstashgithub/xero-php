@@ -1,12 +1,15 @@
 <?php
+
 namespace XeroPHP\Models\Accounting;
 
 use XeroPHP\Remote;
+use XeroPHP\Traits\HistoryTrait;
 use XeroPHP\Traits\AttachmentTrait;
 
 class ExpenseClaim extends Remote\Model
 {
     use AttachmentTrait;
+    use HistoryTrait;
 
     /**
      * Xero identifier
@@ -27,9 +30,9 @@ class ExpenseClaim extends Remote\Model
      */
 
 
-    const EXPENSE_CLAIM_STATUS_SUBMITTED  = 'SUBMITTED';
+    const EXPENSE_CLAIM_STATUS_SUBMITTED = 'SUBMITTED';
     const EXPENSE_CLAIM_STATUS_AUTHORISED = 'AUTHORISED';
-    const EXPENSE_CLAIM_STATUS_PAID       = 'PAID';
+    const EXPENSE_CLAIM_STATUS_PAID = 'PAID';
 
 
     /**
@@ -177,7 +180,7 @@ class ExpenseClaim extends Remote\Model
     public function addReceipt(Receipt $value)
     {
         $this->propertyUpdated('Receipts', $value);
-        if (!isset($this->_data['Receipts'])) {
+        if (! isset($this->_data['Receipts'])) {
             $this->_data['Receipts'] = new Remote\Collection();
         }
         $this->_data['Receipts'][] = $value;

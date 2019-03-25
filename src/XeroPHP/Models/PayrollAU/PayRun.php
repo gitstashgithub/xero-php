@@ -1,11 +1,11 @@
 <?php
+
 namespace XeroPHP\Models\PayrollAU;
 
 use XeroPHP\Remote;
 
 class PayRun extends Remote\Model
 {
-
     /**
      * See PayrollCalendars
      *
@@ -368,7 +368,4 @@ class PayRun extends Remote\Model
     {
         return $this->_data['NetPay'];
     }
-
-
-
 }

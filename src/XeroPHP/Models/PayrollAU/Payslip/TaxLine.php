@@ -1,11 +1,11 @@
 <?php
+
 namespace XeroPHP\Models\PayrollAU\Payslip;
 
 use XeroPHP\Remote;
 
 class TaxLine extends Remote\Model
 {
-
     /**
      * Name of the tax type
      *
@@ -187,6 +187,4 @@ class TaxLine extends Remote\Model
         $this->_data['LiabilityAccount'] = $value;
         return $this;
     }
-
-
 }

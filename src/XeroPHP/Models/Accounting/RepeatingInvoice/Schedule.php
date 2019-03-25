@@ -1,12 +1,11 @@
 <?php
+
 namespace XeroPHP\Models\Accounting\RepeatingInvoice;
 
 use XeroPHP\Remote;
-use XeroPHP\Models\Accounting\Organisation\PaymentTerm;
 
 class Schedule extends Remote\Model
 {
-
     /**
      * Integer used with the unit e.g. 1 (every 1 week), 2 (every 2 months)
      *
@@ -26,9 +25,9 @@ class Schedule extends Remote\Model
      */
 
     /**
-     * See Payment Terms
+     * Get the due date type
      *
-     * @property PaymentTerm DueDateType
+     * @property string DueDateType
      */
 
     /**
@@ -122,7 +121,7 @@ class Schedule extends Remote\Model
             'Period' => [false, self::PROPERTY_TYPE_INT, null, false, false],
             'Unit' => [false, self::PROPERTY_TYPE_STRING, null, false, false],
             'DueDate' => [false, self::PROPERTY_TYPE_INT, null, false, false],
-            'DueDateType' => [false, self::PROPERTY_TYPE_OBJECT, 'Accounting\\Organisation\\PaymentTerm', false, false],
+            'DueDateType' => [false, self::PROPERTY_TYPE_ENUM, null, false, false],
             'StartDate' => [false, self::PROPERTY_TYPE_DATE, '\\DateTimeInterface', false, false],
             'NextScheduledDate' => [false, self::PROPERTY_TYPE_DATE, '\\DateTimeInterface', false, false],
             'EndDate' => [false, self::PROPERTY_TYPE_DATE, '\\DateTimeInterface', false, false]
@@ -192,7 +191,7 @@ class Schedule extends Remote\Model
     }
 
     /**
-     * @return PaymentTerm
+     * @return string
      */
     public function getDueDateType()
     {
@@ -200,10 +199,10 @@ class Schedule extends Remote\Model
     }
 
     /**
-     * @param PaymentTerm $value
+     * @param string $value
      * @return Schedule
      */
-    public function setDueDateType(PaymentTerm $value)
+    public function setDueDateType($value)
     {
         $this->propertyUpdated('DueDateType', $value);
         $this->_data['DueDateType'] = $value;
@@ -266,6 +265,4 @@ class Schedule extends Remote\Model
         $this->_data['EndDate'] = $value;
         return $this;
     }
-
-
 }

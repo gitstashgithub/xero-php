@@ -1,11 +1,11 @@
 <?php
+
 namespace XeroPHP\Models\PayrollUS\Employee;
 
 use XeroPHP\Remote;
 
 class PaymentMethod extends Remote\Model
 {
-
     /**
      * See PaymentMethodTypes
      *
@@ -19,8 +19,8 @@ class PaymentMethod extends Remote\Model
      */
 
 
-    const PAYMENT_METHOD_TYPE_CHECK         = 'CHECK';
-    const PAYMENT_METHOD_TYPE_MANUAL        = 'MANUAL';
+    const PAYMENT_METHOD_TYPE_CHECK = 'CHECK';
+    const PAYMENT_METHOD_TYPE_MANUAL = 'MANUAL';
     const PAYMENT_METHOD_TYPE_DIRECTDEPOSIT = 'DIRECTDEPOSIT';
 
 
@@ -136,12 +136,10 @@ class PaymentMethod extends Remote\Model
     public function addBankAccount(BankAccount $value)
     {
         $this->propertyUpdated('BankAccounts', $value);
-        if (!isset($this->_data['BankAccounts'])) {
+        if (! isset($this->_data['BankAccounts'])) {
             $this->_data['BankAccounts'] = new Remote\Collection();
         }
         $this->_data['BankAccounts'][] = $value;
         return $this;
     }
-
-
 }

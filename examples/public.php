@@ -1,8 +1,8 @@
 <?php
 
-use XeroPHP\Application\PublicApplication;
-use XeroPHP\Remote\Request;
 use XeroPHP\Remote\URL;
+use XeroPHP\Remote\Request;
+use XeroPHP\Application\PublicApplication;
 
 // Start a session for the oauth session storage
 session_start();
@@ -10,8 +10,8 @@ session_start();
 //These are the minimum settings - for more options, refer to examples/config.php
 $config = [
     'oauth' => [
-        'callback'        => 'http://localhost/',
-        'consumer_key'    => 'k',
+        'callback' => 'http://localhost/',
+        'consumer_key' => 'k',
         'consumer_secret' => 's',
     ],
     'curl' => [
@@ -94,7 +94,7 @@ function setOAuthSession($token, $secret, $expires = null)
 {
     // expires sends back an int
     if ($expires !== null) {
-        $expires = time() + intval($expires);
+        $expires = time() + (int) $expires;
     }
 
     $_SESSION['oauth'] = [
@@ -107,7 +107,7 @@ function setOAuthSession($token, $secret, $expires = null)
 function getOAuthSession()
 {
     //If it doesn't exist or is expired, return null
-    if (!isset($_SESSION['oauth'])
+    if (! isset($_SESSION['oauth'])
         || ($_SESSION['oauth']['expires'] !== null
         && $_SESSION['oauth']['expires'] <= time())
     ) {

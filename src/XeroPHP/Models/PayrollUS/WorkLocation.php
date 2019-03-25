@@ -1,11 +1,11 @@
 <?php
+
 namespace XeroPHP\Models\PayrollUS;
 
 use XeroPHP\Remote;
 
 class WorkLocation extends Remote\Model
 {
-
     /**
      * Street address of the work location (max length = 400)
      *
@@ -292,6 +292,4 @@ class WorkLocation extends Remote\Model
         $this->_data['IsPrimary'] = $value;
         return $this;
     }
-
-
 }

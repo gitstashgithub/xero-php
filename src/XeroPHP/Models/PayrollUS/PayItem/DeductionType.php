@@ -1,11 +1,11 @@
 <?php
+
 namespace XeroPHP\Models\PayrollUS\PayItem;
 
 use XeroPHP\Remote;
 
 class DeductionType extends Remote\Model
 {
-
     /**
      * Name of the deduction type (max length = 50)
      *
@@ -45,7 +45,7 @@ class DeductionType extends Remote\Model
      * you time when setting up the employee deductions. If you choose not to set an amount here, you can
      * enter the amounts to be deducted on a per employee basis. Only applicable when DeductionCategory is
      * AFTERTAXDEDUCTION, DEPENDENTCARE, FLEXIBLESPENDINGACCOUNT,
-SECTION125PLAN
+     * SECTION125PLAN
      *
      * @property float StandardAmount
      */
@@ -56,29 +56,29 @@ SECTION125PLAN
      * publishes limits for certain deduction types each year. You can set a company maximum that is lower
      * than the IRS limit, depending on your plan requirements. If you don’t set a maximum, the deduction
      * will stop automatically when the IRS limit is reached.
-Only applicable when DeductionCategory is
+     * Only applicable when DeductionCategory is
      * AFTERTAXDEDUCTION, DEPENDENTCARE, FLEXIBLESPENDINGACCOUNT,
-SECTION125PLAN
+     * SECTION125PLAN
      *
      * @property float CompanyMax
      */
 
 
-    const CALCULATION_TYPE_CATCHUPPLAN  = 'CATCHUPPLAN';
+    const CALCULATION_TYPE_CATCHUPPLAN = 'CATCHUPPLAN';
     const CALCULATION_TYPE_STANDARDPLAN = 'STANDARDPLAN';
 
-    const DEDUCTION_CATEGORY_AFTERTAXDEDUCTION       = 'AFTERTAXDEDUCTION';
-    const DEDUCTION_CATEGORY_DEPENDENTCARE           = 'DEPENDENTCARE';
+    const DEDUCTION_CATEGORY_AFTERTAXDEDUCTION = 'AFTERTAXDEDUCTION';
+    const DEDUCTION_CATEGORY_DEPENDENTCARE = 'DEPENDENTCARE';
     const DEDUCTION_CATEGORY_FLEXIBLESPENDINGACCOUNT = 'FLEXIBLESPENDINGACCOUNT';
-    const DEDUCTION_CATEGORY_HSASINGLEPLAN           = 'HSASINGLEPLAN';
-    const DEDUCTION_CATEGORY_HSAFAMILYPLAN           = 'HSAFAMILYPLAN';
-    const DEDUCTION_CATEGORY_ROTH401KRETIREMENTPLAN  = 'ROTH401KRETIREMENTPLAN';
-    const DEDUCTION_CATEGORY_ROTH403BRETIREMENTPLAN  = 'ROTH403BRETIREMENTPLAN';
-    const DEDUCTION_CATEGORY_SECTION125PLAN          = 'SECTION125PLAN';
+    const DEDUCTION_CATEGORY_HSASINGLEPLAN = 'HSASINGLEPLAN';
+    const DEDUCTION_CATEGORY_HSAFAMILYPLAN = 'HSAFAMILYPLAN';
+    const DEDUCTION_CATEGORY_ROTH401KRETIREMENTPLAN = 'ROTH401KRETIREMENTPLAN';
+    const DEDUCTION_CATEGORY_ROTH403BRETIREMENTPLAN = 'ROTH403BRETIREMENTPLAN';
+    const DEDUCTION_CATEGORY_SECTION125PLAN = 'SECTION125PLAN';
     const DEDUCTION_CATEGORY_SIMPLEIRARETIREMENTPLAN = 'SIMPLEIRARETIREMENTPLAN';
-    const DEDUCTION_CATEGORY_401KRETIREMENTPLAN      = '401KRETIREMENTPLAN';
-    const DEDUCTION_CATEGORY_403BRETIREMENTPLAN      = '403BRETIREMENTPLAN';
-    const DEDUCTION_CATEGORY_457RETIREMENTPLAN       = '457RETIREMENTPLAN';
+    const DEDUCTION_CATEGORY_401KRETIREMENTPLAN = '401KRETIREMENTPLAN';
+    const DEDUCTION_CATEGORY_403BRETIREMENTPLAN = '403BRETIREMENTPLAN';
+    const DEDUCTION_CATEGORY_457RETIREMENTPLAN = '457RETIREMENTPLAN';
 
 
     /**
@@ -295,6 +295,4 @@ SECTION125PLAN
         $this->_data['CompanyMax'] = $value;
         return $this;
     }
-
-
 }

@@ -1,4 +1,5 @@
 <?php
+
 namespace XeroPHP\Models\Accounting\PurchaseOrder;
 
 use XeroPHP\Remote;
@@ -6,7 +7,6 @@ use XeroPHP\Models\Accounting\TrackingCategory;
 
 class LineItem extends Remote\Model
 {
-
     /**
      * The description of the line item. A line item can be created with only a description (i.e no unit
      * amount or quantity)
@@ -315,7 +315,7 @@ class LineItem extends Remote\Model
     public function addTracking(TrackingCategory $value)
     {
         $this->propertyUpdated('Tracking', $value);
-        if (!isset($this->_data['Tracking'])) {
+        if (! isset($this->_data['Tracking'])) {
             $this->_data['Tracking'] = new Remote\Collection();
         }
         $this->_data['Tracking'][] = $value;
@@ -378,6 +378,4 @@ class LineItem extends Remote\Model
         $this->_data['LineAmount'] = $value;
         return $this;
     }
-
-
 }

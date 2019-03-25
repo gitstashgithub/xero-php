@@ -1,11 +1,11 @@
 <?php
+
 namespace XeroPHP\Models\PayrollUS\Employee;
 
 use XeroPHP\Remote;
 
 class BankAccount extends Remote\Model
 {
-
     /**
      * The name of bank account holder exactly how the bank has it.
      *
@@ -265,6 +265,4 @@ class BankAccount extends Remote\Model
         $this->_data['Remainder'] = $value;
         return $this;
     }
-
-
 }

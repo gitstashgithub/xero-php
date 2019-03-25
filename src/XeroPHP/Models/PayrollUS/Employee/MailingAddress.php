@@ -1,11 +1,11 @@
 <?php
+
 namespace XeroPHP\Models\PayrollUS\Employee;
 
 use XeroPHP\Remote;
 
 class MailingAddress extends Remote\Model
 {
-
     /**
      * Street Address for employee home address
      *
@@ -37,13 +37,13 @@ class MailingAddress extends Remote\Model
      */
 
     /**
-     * The Latitude of employee home address
+     * The Latitude of employee home address
      *
      * @property string Lattitude
      */
 
     /**
-     * The Longitude of employee home address
+     * The Longitude of employee home address
      *
      * @property string Longitude
      */
@@ -264,6 +264,4 @@ class MailingAddress extends Remote\Model
         $this->_data['Longitude'] = $value;
         return $this;
     }
-
-
 }

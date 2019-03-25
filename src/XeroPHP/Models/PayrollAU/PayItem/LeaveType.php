@@ -1,11 +1,11 @@
 <?php
+
 namespace XeroPHP\Models\PayrollAU\PayItem;
 
 use XeroPHP\Remote;
 
 class LeaveType extends Remote\Model
 {
-
     /**
      * Name of the leave type (max length = 50)
      *
@@ -268,6 +268,4 @@ class LeaveType extends Remote\Model
         $this->_data['LeaveLoadingRate'] = $value;
         return $this;
     }
-
-
 }

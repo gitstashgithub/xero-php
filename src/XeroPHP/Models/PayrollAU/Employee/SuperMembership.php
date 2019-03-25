@@ -1,11 +1,11 @@
 <?php
+
 namespace XeroPHP\Models\PayrollAU\Employee;
 
 use XeroPHP\Remote;
 
 class SuperMembership extends Remote\Model
 {
-
     /**
      * Xero identifier for super fund
      *
@@ -186,6 +186,4 @@ class SuperMembership extends Remote\Model
         $this->_data['EmployeeID'] = $value;
         return $this;
     }
-
-
 }

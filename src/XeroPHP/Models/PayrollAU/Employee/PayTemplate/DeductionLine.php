@@ -1,11 +1,11 @@
 <?php
+
 namespace XeroPHP\Models\PayrollAU\Employee\PayTemplate;
 
 use XeroPHP\Remote;
 
 class DeductionLine extends Remote\Model
 {
-
     /**
      * Xero deduction type identifier
      *

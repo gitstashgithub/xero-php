@@ -1,11 +1,11 @@
 <?php
+
 namespace XeroPHP\Models\Accounting;
 
 use XeroPHP\Remote;
 
 class BrandingTheme extends Remote\Model
 {
-
     /**
      * Xero identifier
      *
@@ -187,6 +187,4 @@ class BrandingTheme extends Remote\Model
         $this->_data['CreatedDateUTC'] = $value;
         return $this;
     }
-
-
 }

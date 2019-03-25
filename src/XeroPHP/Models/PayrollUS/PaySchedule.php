@@ -1,11 +1,11 @@
 <?php
+
 namespace XeroPHP\Models\PayrollUS;
 
 use XeroPHP\Remote;
 
 class PaySchedule extends Remote\Model
 {
-
     /**
      * Name of the Pay Schedule
      *
@@ -214,6 +214,4 @@ class PaySchedule extends Remote\Model
         $this->_data['PayScheduleId'] = $value;
         return $this;
     }
-
-
 }

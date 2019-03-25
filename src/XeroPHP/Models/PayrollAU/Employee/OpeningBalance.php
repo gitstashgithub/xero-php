@@ -1,4 +1,5 @@
 <?php
+
 namespace XeroPHP\Models\PayrollAU\Employee;
 
 use XeroPHP\Remote;
@@ -8,7 +9,6 @@ use XeroPHP\Models\PayrollAU\Payslip\ReimbursementLine;
 
 class OpeningBalance extends Remote\Model
 {
-
     /**
      * Opening Balance Date. (YYYY-MM-DD)
      *
@@ -245,7 +245,7 @@ class OpeningBalance extends Remote\Model
     public function addEarningsLine(EarningsLine $value)
     {
         $this->propertyUpdated('EarningsLines', $value);
-        if (!isset($this->_data['EarningsLines'])) {
+        if (! isset($this->_data['EarningsLines'])) {
             $this->_data['EarningsLines'] = new Remote\Collection();
         }
         $this->_data['EarningsLines'][] = $value;
@@ -268,7 +268,7 @@ class OpeningBalance extends Remote\Model
     public function addDeductionLine(DeductionLine $value)
     {
         $this->propertyUpdated('DeductionLines', $value);
-        if (!isset($this->_data['DeductionLines'])) {
+        if (! isset($this->_data['DeductionLines'])) {
             $this->_data['DeductionLines'] = new Remote\Collection();
         }
         $this->_data['DeductionLines'][] = $value;
@@ -310,7 +310,7 @@ class OpeningBalance extends Remote\Model
     public function addReimbursementLine(ReimbursementLine $value)
     {
         $this->propertyUpdated('ReimbursementLines', $value);
-        if (!isset($this->_data['ReimbursementLines'])) {
+        if (! isset($this->_data['ReimbursementLines'])) {
             $this->_data['ReimbursementLines'] = new Remote\Collection();
         }
         $this->_data['ReimbursementLines'][] = $value;
@@ -487,6 +487,4 @@ class OpeningBalance extends Remote\Model
         $this->_data['NumberOfUnits'] = $value;
         return $this;
     }
-
-
 }

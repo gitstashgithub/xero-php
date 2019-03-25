@@ -1,11 +1,11 @@
 <?php
+
 namespace XeroPHP\Models\PayrollUS\Paystub;
 
 use XeroPHP\Remote;
 
 class ReimbursementLine extends Remote\Model
 {
-
     /**
      * Xero identifier for payroll reimbursement type
      *
@@ -186,6 +186,4 @@ class ReimbursementLine extends Remote\Model
         $this->_data['Amount'] = $value;
         return $this;
     }
-
-
 }

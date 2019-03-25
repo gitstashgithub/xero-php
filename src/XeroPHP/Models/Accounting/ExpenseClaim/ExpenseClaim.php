@@ -1,4 +1,5 @@
 <?php
+
 namespace XeroPHP\Models\Accounting\ExpenseClaim;
 
 use XeroPHP\Remote;
@@ -6,7 +7,6 @@ use XeroPHP\Models\Accounting\Payment;
 
 class ExpenseClaim extends Remote\Model
 {
-
     /**
      * Xero generated unique identifier for an expense claim
      *
@@ -264,6 +264,4 @@ class ExpenseClaim extends Remote\Model
         $this->_data['ReceiptID'] = $value;
         return $this;
     }
-
-
 }

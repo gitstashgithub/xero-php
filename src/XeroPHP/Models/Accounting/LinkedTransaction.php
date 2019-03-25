@@ -1,11 +1,11 @@
 <?php
+
 namespace XeroPHP\Models\Accounting;
 
 use XeroPHP\Remote;
 
 class LinkedTransaction extends Remote\Model
 {
-
     /**
      * Filter by the SourceTransactionID. Get all the linked transactions created from a particular ACCPAY
      * invoice
@@ -76,11 +76,11 @@ class LinkedTransaction extends Remote\Model
      */
 
 
-    const LINKED_TRANSACTION_STATUS_DRAFT    = 'DRAFT';
+    const LINKED_TRANSACTION_STATUS_DRAFT = 'DRAFT';
     const LINKED_TRANSACTION_STATUS_APPROVED = 'APPROVED';
-    const LINKED_TRANSACTION_STATUS_ONDRAFT  = 'ONDRAFT';
-    const LINKED_TRANSACTION_STATUS_BILLED   = 'BILLED';
-    const LINKED_TRANSACTION_STATUS_VOIDED   = 'VOIDED';
+    const LINKED_TRANSACTION_STATUS_ONDRAFT = 'ONDRAFT';
+    const LINKED_TRANSACTION_STATUS_BILLED = 'BILLED';
+    const LINKED_TRANSACTION_STATUS_VOIDED = 'VOIDED';
 
 
     /**
@@ -361,6 +361,4 @@ class LinkedTransaction extends Remote\Model
         $this->_data['SourceTransactionTypeCode'] = $value;
         return $this;
     }
-
-
 }

@@ -1,4 +1,5 @@
 <?php
+
 namespace XeroPHP\Models\PayrollAU;
 
 use XeroPHP\Remote;
@@ -7,7 +8,6 @@ use XeroPHP\Models\PayrollAU\Setting\TrackingCategory;
 
 class Setting extends Remote\Model
 {
-
     /**
      * Payroll Account details for SuperExpense, SuperLiabilty, WagesExpense, PAYGLiability & WagesPayable.
      *  See Accounts
@@ -124,7 +124,7 @@ class Setting extends Remote\Model
     public function addAccount(Account $value)
     {
         $this->propertyUpdated('Accounts', $value);
-        if (!isset($this->_data['Accounts'])) {
+        if (! isset($this->_data['Accounts'])) {
             $this->_data['Accounts'] = new Remote\Collection();
         }
         $this->_data['Accounts'][] = $value;
@@ -147,7 +147,7 @@ class Setting extends Remote\Model
     public function addTrackingCategory(TrackingCategory $value)
     {
         $this->propertyUpdated('TrackingCategories', $value);
-        if (!isset($this->_data['TrackingCategories'])) {
+        if (! isset($this->_data['TrackingCategories'])) {
             $this->_data['TrackingCategories'] = new Remote\Collection();
         }
         $this->_data['TrackingCategories'][] = $value;
@@ -172,6 +172,4 @@ class Setting extends Remote\Model
         $this->_data['DaysInPayrollYear'] = $value;
         return $this;
     }
-
-
 }

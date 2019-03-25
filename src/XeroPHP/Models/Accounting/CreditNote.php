@@ -1,17 +1,19 @@
 <?php
+
 namespace XeroPHP\Models\Accounting;
 
 use XeroPHP\Remote;
 use XeroPHP\Traits\PDFTrait;
+use XeroPHP\Traits\HistoryTrait;
 use XeroPHP\Traits\AttachmentTrait;
 use XeroPHP\Models\Accounting\Invoice\LineItem;
 use XeroPHP\Models\Accounting\CreditNote\Allocation;
 
 class CreditNote extends Remote\Model
 {
-
     use PDFTrait;
     use AttachmentTrait;
+    use HistoryTrait;
 
     /**
      * See Credit Note Types
@@ -357,13 +359,13 @@ class CreditNote extends Remote\Model
     public function addLineItem(LineItem $value)
     {
         $this->propertyUpdated('LineItems', $value);
-        if (!isset($this->_data['LineItems'])) {
+        if (! isset($this->_data['LineItems'])) {
             $this->_data['LineItems'] = new Remote\Collection();
         }
         $this->_data['LineItems'][] = $value;
         return $this;
     }
-    
+
     /**
      * @return LineItem[]|Remote\Collection
      * Always returns a collection, switch is for type hinting
@@ -617,7 +619,7 @@ class CreditNote extends Remote\Model
     public function addAllocation(Allocation $value)
     {
         $this->propertyUpdated('Allocations', $value);
-        if (!isset($this->_data['Allocations'])) {
+        if (! isset($this->_data['Allocations'])) {
             $this->_data['Allocations'] = new Remote\Collection();
         }
         $this->_data['Allocations'][] = $value;
@@ -655,6 +657,7 @@ class CreditNote extends Remote\Model
      * @deprecated - this is a read only property and this method will be removed in future versions
      * @param $value
      */
-    public function setHasAttachment($value){}
-
+    public function setHasAttachment($value)
+    {
+    }
 }

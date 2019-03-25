@@ -1,13 +1,13 @@
 <?php
+
 namespace XeroPHP\Models\Accounting;
 
 use XeroPHP\Remote;
-use XeroPHP\Models\Accounting\Organisation\ExternalLink;
 use XeroPHP\Models\Accounting\Organisation\PaymentTerm;
+use XeroPHP\Models\Accounting\Organisation\ExternalLink;
 
 class Organisation extends Remote\Model
 {
-
     /**
      * Display a unique key used for Xero-to-Xero transactions
      *
@@ -186,25 +186,25 @@ class Organisation extends Remote\Model
      */
 
 
-    const VERSION_TYPE_AU           = 'AU';
-    const VERSION_TYPE_NZ           = 'NZ';
-    const VERSION_TYPE_GLOBAL       = 'GLOBAL';
-    const VERSION_TYPE_UK           = 'UK';
-    const VERSION_TYPE_US           = 'US';
-    const VERSION_TYPE_AUONRAMP     = 'AUONRAMP';
-    const VERSION_TYPE_NZONRAMP     = 'NZONRAMP';
+    const VERSION_TYPE_AU = 'AU';
+    const VERSION_TYPE_NZ = 'NZ';
+    const VERSION_TYPE_GLOBAL = 'GLOBAL';
+    const VERSION_TYPE_UK = 'UK';
+    const VERSION_TYPE_US = 'US';
+    const VERSION_TYPE_AUONRAMP = 'AUONRAMP';
+    const VERSION_TYPE_NZONRAMP = 'NZONRAMP';
     const VERSION_TYPE_GLOBALONRAMP = 'GLOBALONRAMP';
-    const VERSION_TYPE_UKONRAMP     = 'UKONRAMP';
-    const VERSION_TYPE_USONRAMP     = 'USONRAMP';
+    const VERSION_TYPE_UKONRAMP = 'UKONRAMP';
+    const VERSION_TYPE_USONRAMP = 'USONRAMP';
 
-    const ORGANISATION_TYPE_COMPANY     = 'COMPANY';
-    const ORGANISATION_TYPE_CHARITY     = 'CHARITY';
+    const ORGANISATION_TYPE_COMPANY = 'COMPANY';
+    const ORGANISATION_TYPE_CHARITY = 'CHARITY';
     const ORGANISATION_TYPE_CLUBSOCIETY = 'CLUBSOCIETY';
     const ORGANISATION_TYPE_PARTNERSHIP = 'PARTNERSHIP';
-    const ORGANISATION_TYPE_PRACTICE    = 'PRACTICE';
-    const ORGANISATION_TYPE_PERSON      = 'PERSON';
-    const ORGANISATION_TYPE_SOLETRADER  = 'SOLETRADER';
-    const ORGANISATION_TYPE_TRUST       = 'TRUST';
+    const ORGANISATION_TYPE_PRACTICE = 'PRACTICE';
+    const ORGANISATION_TYPE_PERSON = 'PERSON';
+    const ORGANISATION_TYPE_SOLETRADER = 'SOLETRADER';
+    const ORGANISATION_TYPE_TRUST = 'TRUST';
 
 
     /**
@@ -804,7 +804,7 @@ class Organisation extends Remote\Model
     public function addAddress(Address $value)
     {
         $this->propertyUpdated('Addresses', $value);
-        if (!isset($this->_data['Addresses'])) {
+        if (! isset($this->_data['Addresses'])) {
             $this->_data['Addresses'] = new Remote\Collection();
         }
         $this->_data['Addresses'][] = $value;
@@ -827,7 +827,7 @@ class Organisation extends Remote\Model
     public function addPhone(Phone $value)
     {
         $this->propertyUpdated('Phones', $value);
-        if (!isset($this->_data['Phones'])) {
+        if (! isset($this->_data['Phones'])) {
             $this->_data['Phones'] = new Remote\Collection();
         }
         $this->_data['Phones'][] = $value;
@@ -850,7 +850,7 @@ class Organisation extends Remote\Model
     public function addExternalLink(ExternalLink $value)
     {
         $this->propertyUpdated('ExternalLinks', $value);
-        if (!isset($this->_data['ExternalLinks'])) {
+        if (! isset($this->_data['ExternalLinks'])) {
             $this->_data['ExternalLinks'] = new Remote\Collection();
         }
         $this->_data['ExternalLinks'][] = $value;
@@ -873,7 +873,7 @@ class Organisation extends Remote\Model
     public function addPaymentTerm(PaymentTerm $value)
     {
         $this->propertyUpdated('PaymentTerms', $value);
-        if (!isset($this->_data['PaymentTerms'])) {
+        if (! isset($this->_data['PaymentTerms'])) {
             $this->_data['PaymentTerms'] = new Remote\Collection();
         }
         $this->_data['PaymentTerms'][] = $value;

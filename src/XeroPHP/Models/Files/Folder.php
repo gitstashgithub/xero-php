@@ -1,11 +1,11 @@
 <?php
+
 namespace XeroPHP\Models\Files;
 
 use XeroPHP\Remote;
 
 class Folder extends Remote\Model
 {
-
     /**
      * The name of the folder
      *
@@ -249,7 +249,7 @@ class Folder extends Remote\Model
     public function addFile(File $value)
     {
         $this->propertyUpdated('Files', $value);
-        if (!isset($this->_data['Files'])) {
+        if (! isset($this->_data['Files'])) {
             $this->_data['Files'] = new Remote\Collection();
         }
         $this->_data['Files'][] = $value;
@@ -274,6 +274,4 @@ class Folder extends Remote\Model
         $this->_data['FolderId'] = $value;
         return $this;
     }
-
-
 }

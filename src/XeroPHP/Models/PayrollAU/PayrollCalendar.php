@@ -1,11 +1,11 @@
 <?php
+
 namespace XeroPHP\Models\PayrollAU;
 
 use XeroPHP\Remote;
 
 class PayrollCalendar extends Remote\Model
 {
-
     /**
      * Xero identifier
      *
@@ -38,12 +38,12 @@ class PayrollCalendar extends Remote\Model
      */
 
 
-    const CALENDARTYPE_WEEKLY       = 'WEEKLY';
-    const CALENDARTYPE_FORTNIGHTLY  = 'FORTNIGHTLY';
-    const CALENDARTYPE_FOURWEEKLY   = 'FOURWEEKLY';
-    const CALENDARTYPE_MONTHLY      = 'MONTHLY';
+    const CALENDARTYPE_WEEKLY = 'WEEKLY';
+    const CALENDARTYPE_FORTNIGHTLY = 'FORTNIGHTLY';
+    const CALENDARTYPE_FOURWEEKLY = 'FOURWEEKLY';
+    const CALENDARTYPE_MONTHLY = 'MONTHLY';
     const CALENDARTYPE_TWICEMONTHLY = 'TWICEMONTHLY';
-    const CALENDARTYPE_QUARTERLY    = 'QUARTERLY';
+    const CALENDARTYPE_QUARTERLY = 'QUARTERLY';
 
 
     /**
@@ -222,6 +222,4 @@ class PayrollCalendar extends Remote\Model
         $this->_data['PaymentDate'] = $value;
         return $this;
     }
-
-
 }

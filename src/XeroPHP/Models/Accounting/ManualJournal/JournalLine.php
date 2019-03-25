@@ -1,4 +1,5 @@
 <?php
+
 namespace XeroPHP\Models\Accounting\ManualJournal;
 
 use XeroPHP\Remote;
@@ -6,7 +7,6 @@ use XeroPHP\Models\Accounting\TrackingCategory;
 
 class JournalLine extends Remote\Model
 {
-
     /**
      * total for line. Debits are positive, credits are negative value
      *
@@ -220,7 +220,7 @@ class JournalLine extends Remote\Model
     public function addTracking(TrackingCategory $value)
     {
         $this->propertyUpdated('Tracking', $value);
-        if (!isset($this->_data['Tracking'])) {
+        if (! isset($this->_data['Tracking'])) {
             $this->_data['Tracking'] = new Remote\Collection();
         }
         $this->_data['Tracking'][] = $value;
@@ -234,7 +234,4 @@ class JournalLine extends Remote\Model
     {
         return $this->_data['TaxAmount'];
     }
-
-
-
 }

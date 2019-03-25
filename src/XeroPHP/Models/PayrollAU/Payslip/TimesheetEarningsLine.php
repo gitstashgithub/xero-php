@@ -1,11 +1,11 @@
 <?php
+
 namespace XeroPHP\Models\PayrollAU\Payslip;
 
 use XeroPHP\Remote;
 
 class TimesheetEarningsLine extends Remote\Model
 {
-
     /**
      * Xero identifier for payroll earnings rate.
      *
@@ -160,6 +160,4 @@ class TimesheetEarningsLine extends Remote\Model
         $this->_data['Amount'] = $value;
         return $this;
     }
-
-
 }

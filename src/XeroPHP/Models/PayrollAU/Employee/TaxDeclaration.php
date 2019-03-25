@@ -1,11 +1,11 @@
 <?php
+
 namespace XeroPHP\Models\PayrollAU\Employee;
 
 use XeroPHP\Remote;
 
 class TaxDeclaration extends Remote\Model
 {
-
     /**
      * Xero employee identifier. e.g c56b19ef-75bf-45e8-98a4-e699a96609f7
      *
@@ -93,16 +93,16 @@ class TaxDeclaration extends Remote\Model
      */
 
 
-    const EMPLOYMENTBASIS_FULLTIME          = 'FULLTIME';
-    const EMPLOYMENTBASIS_PARTTIME          = 'PARTTIME';
-    const EMPLOYMENTBASIS_CASUAL            = 'CASUAL';
-    const EMPLOYMENTBASIS_LABOURHIRE        = 'LABOURHIRE';
+    const EMPLOYMENTBASIS_FULLTIME = 'FULLTIME';
+    const EMPLOYMENTBASIS_PARTTIME = 'PARTTIME';
+    const EMPLOYMENTBASIS_CASUAL = 'CASUAL';
+    const EMPLOYMENTBASIS_LABOURHIRE = 'LABOURHIRE';
     const EMPLOYMENTBASIS_SUPERINCOMESTREAM = 'SUPERINCOMESTREAM';
 
     const TFNEXEMPTIONTYPE_NOTQUOTED = 'NOTQUOTED';
-    const TFNEXEMPTIONTYPE_PENDING   = 'PENDING';
+    const TFNEXEMPTIONTYPE_PENDING = 'PENDING';
     const TFNEXEMPTIONTYPE_PENSIONER = 'PENSIONER';
-    const TFNEXEMPTIONTYPE_UNDER18   = 'UNDER18';
+    const TFNEXEMPTIONTYPE_UNDER18 = 'UNDER18';
 
 
     /**
@@ -386,7 +386,7 @@ class TaxDeclaration extends Remote\Model
         return $this;
     }
 
-     /**
+    /**
      * @return bool
      * @deprecated
      */
@@ -406,7 +406,7 @@ class TaxDeclaration extends Remote\Model
         $this->_data['HasTSLDebt'] = $value;
         return $this;
     }
-    
+
     /**
      * @return bool
      */
@@ -482,6 +482,4 @@ class TaxDeclaration extends Remote\Model
         $this->_data['ApprovedWithholdingVariationPercentage'] = $value;
         return $this;
     }
-
-
 }

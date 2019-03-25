@@ -1,11 +1,11 @@
 <?php
+
 namespace XeroPHP\Models\Accounting\Organisation;
 
 use XeroPHP\Remote;
 
 class Bill extends Remote\Model
 {
-
     /**
      * Day of Month (0-31)
      *
@@ -134,6 +134,4 @@ class Bill extends Remote\Model
         $this->_data['Type'] = $value;
         return $this;
     }
-
-
 }

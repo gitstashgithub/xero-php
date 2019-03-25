@@ -1,15 +1,17 @@
 <?php
+
 namespace XeroPHP\Models\Accounting;
 
 use XeroPHP\Remote;
+use XeroPHP\Traits\HistoryTrait;
 use XeroPHP\Traits\AttachmentTrait;
 use XeroPHP\Models\Accounting\BankTransaction\LineItem;
 use XeroPHP\Models\Accounting\BankTransaction\BankAccount;
 
 class BankTransaction extends Remote\Model
 {
-
     use AttachmentTrait;
+    use HistoryTrait;
 
     /**
      * See Bank Transaction Types
@@ -139,17 +141,17 @@ class BankTransaction extends Remote\Model
      */
 
 
-    const TYPE_RECEIVE             = 'RECEIVE';
+    const TYPE_RECEIVE = 'RECEIVE';
     const TYPE_RECEIVE_OVERPAYMENT = 'RECEIVE-OVERPAYMENT';
-    const TYPE_RECEIVE_PREPAYMENT  = 'RECEIVE-PREPAYMENT';
-    const TYPE_SPEND               = 'SPEND';
-    const TYPE_SPEND_OVERPAYMENT   = 'SPEND-OVERPAYMENT';
-    const TYPE_SPEND_PREPAYMENT    = 'SPEND-PREPAYMENT';
-    const TYPE_RECEIVE_TRANSFER    = 'RECEIVE-TRANSFER';
-    const TYPE_SPEND_TRANSFER      = 'SPEND-TRANSFER';
+    const TYPE_RECEIVE_PREPAYMENT = 'RECEIVE-PREPAYMENT';
+    const TYPE_SPEND = 'SPEND';
+    const TYPE_SPEND_OVERPAYMENT = 'SPEND-OVERPAYMENT';
+    const TYPE_SPEND_PREPAYMENT = 'SPEND-PREPAYMENT';
+    const TYPE_RECEIVE_TRANSFER = 'RECEIVE-TRANSFER';
+    const TYPE_SPEND_TRANSFER = 'SPEND-TRANSFER';
 
     const BANK_TRANSACTION_STATUS_AUTHORISED = 'AUTHORISED';
-    const BANK_TRANSACTION_STATUS_DELETED    = 'DELETED';
+    const BANK_TRANSACTION_STATUS_DELETED = 'DELETED';
 
 
     /**
@@ -304,7 +306,7 @@ class BankTransaction extends Remote\Model
     public function addLineItem(LineItem $value)
     {
         $this->propertyUpdated('LineItems', $value);
-        if (!isset($this->_data['LineItems'])) {
+        if (! isset($this->_data['LineItems'])) {
             $this->_data['LineItems'] = new Remote\Collection();
         }
         $this->_data['LineItems'][] = $value;
@@ -592,7 +594,4 @@ class BankTransaction extends Remote\Model
     {
         return $this->_data['HasAttachments'];
     }
-
-
-
 }

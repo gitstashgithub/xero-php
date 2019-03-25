@@ -3,10 +3,10 @@
 namespace XeroPHP\Remote\OAuth;
 
 use XeroPHP\Helpers;
+use XeroPHP\Remote\Request;
+use XeroPHP\Remote\OAuth\SignatureMethod\RSASHA1;
 use XeroPHP\Remote\OAuth\SignatureMethod\HMACSHA1;
 use XeroPHP\Remote\OAuth\SignatureMethod\PLAINTEXT;
-use XeroPHP\Remote\OAuth\SignatureMethod\RSASHA1;
-use XeroPHP\Remote\Request;
 
 /**
  * This is a class to manage a client OAuth session with the Xero APIs.
@@ -19,14 +19,14 @@ use XeroPHP\Remote\Request;
 class Client
 {
     //Supported hashing mechanisms
-    const SIGNATURE_RSA_SHA1  = 'RSA-SHA1';
+    const SIGNATURE_RSA_SHA1 = 'RSA-SHA1';
     const SIGNATURE_HMAC_SHA1 = 'HMAC-SHA1';
     const SIGNATURE_PLAINTEXT = 'PLAINTEXT';
 
     const OAUTH_VERSION = '1.0';
 
     const SIGN_LOCATION_HEADER = 'header';
-    const SIGN_LOCATION_QUERY  = 'query_string';
+    const SIGN_LOCATION_QUERY = 'query_string';
 
     private $config;
 
@@ -66,7 +66,7 @@ class Client
                 //Needs escaping in the header, not in the QS
                 $oauth_params['oauth_signature'] = Helpers::escape($oauth_params['oauth_signature']);
 
-                $header = 'OAuth ' . Helpers::flattenAssocArray($oauth_params, '%s="%s"', ', ');
+                $header = 'OAuth '.Helpers::flattenAssocArray($oauth_params, '%s="%s"', ', ');
                 $request->setHeader(Request::HEADER_AUTHORIZATION, $header);
                 break;
 
@@ -91,7 +91,7 @@ class Client
      */
     private function resetOAuthParams()
     {
-        unset($this->oauth_params);
+        $this->oauth_params = null;
     }
 
     /**
@@ -104,14 +104,14 @@ class Client
     private function getOAuthParams()
     {
         //this needs to be stateful until the request is signed, then it gets unset
-        if (!isset($this->oauth_params)) {
+        if (! isset($this->oauth_params)) {
             $this->oauth_params = [
-                'oauth_consumer_key'     => $this->getConsumerKey(),
+                'oauth_consumer_key' => $this->getConsumerKey(),
                 'oauth_signature_method' => $this->getSignatureMethod(),
-                'oauth_timestamp'        => $this->getTimestamp(),
-                'oauth_nonce'            => $this->getNonce(),
-                'oauth_callback'         => $this->getCallback(),
-                'oauth_version'          => self::OAUTH_VERSION
+                'oauth_timestamp' => $this->getTimestamp(),
+                'oauth_nonce' => $this->getNonce(),
+                'oauth_callback' => $this->getCallback(),
+                'oauth_version' => self::OAUTH_VERSION
             ];
 
             if (null !== $token = $this->getToken()) {
@@ -153,7 +153,8 @@ class Client
                 break;
             case self::SIGNATURE_PLAINTEXT:
                 $signature = PLAINTEXT::generateSignature(
-                    $this->config, $this->getSBS($request),
+                    $this->config,
+                    $this->getSBS($request),
                     $this->getSigningSecret()
                 );
                 break;
@@ -202,7 +203,7 @@ class Client
      */
     private function getSigningSecret()
     {
-        $secret = $this->getConsumerSecret() . '&';
+        $secret = $this->getConsumerSecret().'&';
 
         if (null !== $token_secret = $this->getTokenSecret()) {
             $secret .= $token_secret;
@@ -222,7 +223,7 @@ class Client
     private function getNonce($length = 20)
     {
         $parts = explode('.', number_format(microtime(true), 22, '.', ''));
-        if (!isset($parts[1])) {
+        if (! isset($parts[1])) {
             $parts[1] = 0;
         }
         $nonce = base_convert($parts[1], 10, 36);
@@ -299,7 +300,8 @@ class Client
         }
 
         return $this->appendUrlQuery(
-            $this->config['authorize_url'], compact('oauth_token')
+            $this->config['authorize_url'],
+            compact('oauth_token')
         );
     }
 

@@ -1,4 +1,5 @@
 <?php
+
 namespace XeroPHP\Models\Accounting;
 
 use XeroPHP\Remote;
@@ -6,7 +7,6 @@ use XeroPHP\Models\Accounting\Journal\JournalLine;
 
 class Journal extends Remote\Model
 {
-
     /**
      * Xero identifier
      *
@@ -32,7 +32,7 @@ class Journal extends Remote\Model
      */
 
     /**
-     *  
+     *  
      *
      * @property string Reference
      */
@@ -56,31 +56,31 @@ class Journal extends Remote\Model
      */
 
 
-    const JOURNAL_SOURCE_TYPE_ACCREC                     = 'ACCREC';
-    const JOURNAL_SOURCE_TYPE_ACCPAY                     = 'ACCPAY';
-    const JOURNAL_SOURCE_TYPE_ACCRECCREDIT               = 'ACCRECCREDIT';
-    const JOURNAL_SOURCE_TYPE_ACCPAYCREDIT               = 'ACCPAYCREDIT';
-    const JOURNAL_SOURCE_TYPE_ACCRECPAYMENT              = 'ACCRECPAYMENT';
-    const JOURNAL_SOURCE_TYPE_ACCPAYPAYMENT              = 'ACCPAYPAYMENT';
-    const JOURNAL_SOURCE_TYPE_ARCREDITPAYMENT            = 'ARCREDITPAYMENT';
-    const JOURNAL_SOURCE_TYPE_APCREDITPAYMENT            = 'APCREDITPAYMENT';
-    const JOURNAL_SOURCE_TYPE_CASHREC                    = 'CASHREC';
-    const JOURNAL_SOURCE_TYPE_CASHPAID                   = 'CASHPAID';
-    const JOURNAL_SOURCE_TYPE_TRANSFER                   = 'TRANSFER';
-    const JOURNAL_SOURCE_TYPE_ARPREPAYMENT               = 'ARPREPAYMENT';
-    const JOURNAL_SOURCE_TYPE_APPREPAYMENT               = 'APPREPAYMENT';
-    const JOURNAL_SOURCE_TYPE_AROVERPAYMENT              = 'AROVERPAYMENT';
-    const JOURNAL_SOURCE_TYPE_APOVERPAYMENT              = 'APOVERPAYMENT';
-    const JOURNAL_SOURCE_TYPE_EXPCLAIM                   = 'EXPCLAIM';
-    const JOURNAL_SOURCE_TYPE_EXPPAYMENT                 = 'EXPPAYMENT';
-    const JOURNAL_SOURCE_TYPE_MANJOURNAL                 = 'MANJOURNAL';
-    const JOURNAL_SOURCE_TYPE_PAYSLIP                    = 'PAYSLIP';
-    const JOURNAL_SOURCE_TYPE_WAGEPAYABLE                = 'WAGEPAYABLE';
-    const JOURNAL_SOURCE_TYPE_INTEGRATEDPAYROLLPE        = 'INTEGRATEDPAYROLLPE';
-    const JOURNAL_SOURCE_TYPE_INTEGRATEDPAYROLLPT        = 'INTEGRATEDPAYROLLPT';
-    const JOURNAL_SOURCE_TYPE_EXTERNALSPENDMONEY         = 'EXTERNALSPENDMONEY';
+    const JOURNAL_SOURCE_TYPE_ACCREC = 'ACCREC';
+    const JOURNAL_SOURCE_TYPE_ACCPAY = 'ACCPAY';
+    const JOURNAL_SOURCE_TYPE_ACCRECCREDIT = 'ACCRECCREDIT';
+    const JOURNAL_SOURCE_TYPE_ACCPAYCREDIT = 'ACCPAYCREDIT';
+    const JOURNAL_SOURCE_TYPE_ACCRECPAYMENT = 'ACCRECPAYMENT';
+    const JOURNAL_SOURCE_TYPE_ACCPAYPAYMENT = 'ACCPAYPAYMENT';
+    const JOURNAL_SOURCE_TYPE_ARCREDITPAYMENT = 'ARCREDITPAYMENT';
+    const JOURNAL_SOURCE_TYPE_APCREDITPAYMENT = 'APCREDITPAYMENT';
+    const JOURNAL_SOURCE_TYPE_CASHREC = 'CASHREC';
+    const JOURNAL_SOURCE_TYPE_CASHPAID = 'CASHPAID';
+    const JOURNAL_SOURCE_TYPE_TRANSFER = 'TRANSFER';
+    const JOURNAL_SOURCE_TYPE_ARPREPAYMENT = 'ARPREPAYMENT';
+    const JOURNAL_SOURCE_TYPE_APPREPAYMENT = 'APPREPAYMENT';
+    const JOURNAL_SOURCE_TYPE_AROVERPAYMENT = 'AROVERPAYMENT';
+    const JOURNAL_SOURCE_TYPE_APOVERPAYMENT = 'APOVERPAYMENT';
+    const JOURNAL_SOURCE_TYPE_EXPCLAIM = 'EXPCLAIM';
+    const JOURNAL_SOURCE_TYPE_EXPPAYMENT = 'EXPPAYMENT';
+    const JOURNAL_SOURCE_TYPE_MANJOURNAL = 'MANJOURNAL';
+    const JOURNAL_SOURCE_TYPE_PAYSLIP = 'PAYSLIP';
+    const JOURNAL_SOURCE_TYPE_WAGEPAYABLE = 'WAGEPAYABLE';
+    const JOURNAL_SOURCE_TYPE_INTEGRATEDPAYROLLPE = 'INTEGRATEDPAYROLLPE';
+    const JOURNAL_SOURCE_TYPE_INTEGRATEDPAYROLLPT = 'INTEGRATEDPAYROLLPT';
+    const JOURNAL_SOURCE_TYPE_EXTERNALSPENDMONEY = 'EXTERNALSPENDMONEY';
     const JOURNAL_SOURCE_TYPE_INTEGRATEDPAYROLLPTPAYMENT = 'INTEGRATEDPAYROLLPTPAYMENT';
-    const JOURNAL_SOURCE_TYPE_INTEGRATEDPAYROLLCN        = 'INTEGRATEDPAYROLLCN';
+    const JOURNAL_SOURCE_TYPE_INTEGRATEDPAYROLLCN = 'INTEGRATEDPAYROLLCN';
 
 
     /**
@@ -316,12 +316,10 @@ class Journal extends Remote\Model
     public function addJournalLine(JournalLine $value)
     {
         $this->propertyUpdated('JournalLines', $value);
-        if (!isset($this->_data['JournalLines'])) {
+        if (! isset($this->_data['JournalLines'])) {
             $this->_data['JournalLines'] = new Remote\Collection();
         }
         $this->_data['JournalLines'][] = $value;
         return $this;
     }
-
-
 }

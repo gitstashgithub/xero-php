@@ -1,4 +1,5 @@
 <?php
+
 namespace XeroPHP\Models\Assets;
 
 use XeroPHP\Remote;
@@ -6,7 +7,6 @@ use XeroPHP\Models\Assets\AssetType\BookDepreciationSetting;
 
 class AssetType extends Remote\Model
 {
-
     /**
      * The name of the asset type
      *
@@ -268,6 +268,4 @@ class AssetType extends Remote\Model
         $this->_data['Locks'] = $value;
         return $this;
     }
-
-
 }

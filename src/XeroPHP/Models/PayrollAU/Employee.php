@@ -1,26 +1,26 @@
 <?php
+
 namespace XeroPHP\Models\PayrollAU;
 
 use XeroPHP\Remote;
-use XeroPHP\Models\PayrollAU\Employee\HomeAddress;
-use XeroPHP\Models\PayrollAU\Employee\TaxDeclaration;
 use XeroPHP\Models\PayrollAU\Employee\BankAccount;
+use XeroPHP\Models\PayrollAU\Employee\HomeAddress;
 use XeroPHP\Models\PayrollAU\Employee\PayTemplate;
-use XeroPHP\Models\PayrollAU\Employee\OpeningBalance;
 use XeroPHP\Models\PayrollAU\Employee\LeaveBalance;
+use XeroPHP\Models\PayrollAU\Employee\OpeningBalance;
+use XeroPHP\Models\PayrollAU\Employee\TaxDeclaration;
 use XeroPHP\Models\PayrollAU\Employee\SuperMembership;
 
 class Employee extends Remote\Model
 {
-
     /**
-     * First name of employee (max length = 35)
+     * First name of employee (max length = 35)
      *
      * @property string FirstName
      */
 
     /**
-     * Last name of employee (max length = 35)
+     * Last name of employee (max length = 35)
      *
      * @property string LastName
      */
@@ -45,19 +45,19 @@ class Employee extends Remote\Model
      */
 
     /**
-     * Title of the employee (max length = 10)
+     * Title of the employee (max length = 10)
      *
      * @property string Title
      */
 
     /**
-     * Middle name(s) of the employee (max length = 35)
+     * Middle name(s) of the employee (max length = 35)
      *
      * @property string MiddleNames
      */
 
     /**
-     * The email address for the employee (max length = 100)
+     * The email address for the employee (max length = 100)
      *
      * @property string Email
      */
@@ -69,13 +69,13 @@ class Employee extends Remote\Model
      */
 
     /**
-     * Employee mobile number (max length = 50)
+     * Employee mobile number (max length = 50)
      *
      * @property string Mobile
      */
 
     /**
-     * Employee’s twitter name, entered as @twittername (max length = 50)
+     * Employee’s twitter name, entered as @twittername (max length = 50)
      *
      * @property string TwitterUserName
      */
@@ -101,14 +101,14 @@ class Employee extends Remote\Model
      */
 
     /**
-     * JobTitle of the employee (max length = 50)
+     * JobTitle of the employee (max length = 50)
      *
      * @property string JobTitle
      */
 
     /**
      * Employees under an award scheme will be covered by a modern award classification. If you record a
-     * classification, it will be included on your payslips (max length = 100)
+     * classification, it will be included on your payslips (max length = 100)
      *
      * @property string Classification
      */
@@ -189,14 +189,14 @@ class Employee extends Remote\Model
 
     const STATEABBREVIATION_ACT = 'ACT';
     const STATEABBREVIATION_NSW = 'NSW';
-    const STATEABBREVIATION_NT  = 'NT';
+    const STATEABBREVIATION_NT = 'NT';
     const STATEABBREVIATION_QLD = 'QLD';
-    const STATEABBREVIATION_SA  = 'SA';
+    const STATEABBREVIATION_SA = 'SA';
     const STATEABBREVIATION_TAS = 'TAS';
     const STATEABBREVIATION_VIC = 'VIC';
-    const STATEABBREVIATION_WA  = 'WA';
+    const STATEABBREVIATION_WA = 'WA';
 
-    const STATUS_ACTIVE     = 'ACTIVE';
+    const STATUS_ACTIVE = 'ACTIVE';
     const STATUS_TERMINATED = 'TERMINATED';
 
 
@@ -686,7 +686,7 @@ class Employee extends Remote\Model
     public function addBankAccount(BankAccount $value)
     {
         $this->propertyUpdated('BankAccounts', $value);
-        if (!isset($this->_data['BankAccounts'])) {
+        if (! isset($this->_data['BankAccounts'])) {
             $this->_data['BankAccounts'] = new Remote\Collection();
         }
         $this->_data['BankAccounts'][] = $value;
@@ -728,7 +728,7 @@ class Employee extends Remote\Model
     public function addOpeningBalance(OpeningBalance $value)
     {
         $this->propertyUpdated('OpeningBalances', $value);
-        if (!isset($this->_data['OpeningBalances'])) {
+        if (! isset($this->_data['OpeningBalances'])) {
             $this->_data['OpeningBalances'] = new Remote\Collection();
         }
         $this->_data['OpeningBalances'][] = $value;
@@ -751,7 +751,7 @@ class Employee extends Remote\Model
     public function addLeaveBalance(LeaveBalance $value)
     {
         $this->propertyUpdated('LeaveBalances', $value);
-        if (!isset($this->_data['LeaveBalances'])) {
+        if (! isset($this->_data['LeaveBalances'])) {
             $this->_data['LeaveBalances'] = new Remote\Collection();
         }
         $this->_data['LeaveBalances'][] = $value;
@@ -774,7 +774,7 @@ class Employee extends Remote\Model
     public function addSuperMembership(SuperMembership $value)
     {
         $this->propertyUpdated('SuperMemberships', $value);
-        if (!isset($this->_data['SuperMemberships'])) {
+        if (! isset($this->_data['SuperMemberships'])) {
             $this->_data['SuperMemberships'] = new Remote\Collection();
         }
         $this->_data['SuperMemberships'][] = $value;
@@ -894,7 +894,5 @@ class Employee extends Remote\Model
         $this->propertyUpdated('Phone', $value);
         $this->_data['Phone'] = $value;
         return $this;
-    }    
-
-
+    }
 }

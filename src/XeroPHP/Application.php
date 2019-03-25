@@ -3,41 +3,41 @@
 namespace XeroPHP;
 
 use XeroPHP\Remote;
-use XeroPHP\Remote\Collection;
-use XeroPHP\Remote\OAuth\Client;
+use XeroPHP\Remote\URL;
 use XeroPHP\Remote\Query;
 use XeroPHP\Remote\Request;
-use XeroPHP\Remote\URL;
+use XeroPHP\Remote\Collection;
+use XeroPHP\Remote\OAuth\Client;
 
 abstract class Application
 {
     protected static $_config_defaults = [
-        'xero'  => [
-            'site'            => 'https://api.xero.com',
-            'base_url'        => 'https://api.xero.com',
-            'core_version'    => '2.0',
+        'xero' => [
+            'site' => 'https://api.xero.com',
+            'base_url' => 'https://api.xero.com',
+            'core_version' => '2.0',
             'payroll_version' => '1.0',
-            'file_version'    => '1.0',
+            'file_version' => '1.0',
             'model_namespace' => '\\XeroPHP\\Models'
         ],
         //OAuth config
         'oauth' => [
-            'signature_method'   => Client::SIGNATURE_RSA_SHA1,
+            'signature_method' => Client::SIGNATURE_RSA_SHA1,
             'signature_location' => Client::SIGN_LOCATION_HEADER,
-            'authorize_url'      => 'https://api.xero.com/oauth/Authorize',
+            'authorize_url' => 'https://api.xero.com/oauth/Authorize',
             'request_token_path' => 'oauth/RequestToken',
-            'access_token_path'  => 'oauth/AccessToken'
+            'access_token_path' => 'oauth/AccessToken'
         ],
-        'curl'  => [
-            CURLOPT_USERAGENT      => 'XeroPHP',
+        'curl' => [
+            CURLOPT_USERAGENT => 'XeroPHP',
             CURLOPT_CONNECTTIMEOUT => 30,
-            CURLOPT_TIMEOUT        => 30,
+            CURLOPT_TIMEOUT => 30,
             CURLOPT_SSL_VERIFYPEER => 2,
             CURLOPT_SSL_VERIFYHOST => 2,
             CURLOPT_FOLLOWLOCATION => false,
-            CURLOPT_PROXY          => false,
-            CURLOPT_PROXYUSERPWD   => false,
-            CURLOPT_ENCODING       => '',
+            CURLOPT_PROXY => false,
+            CURLOPT_PROXYUSERPWD => false,
+            CURLOPT_ENCODING => '',
         ]
     ];
 
@@ -57,12 +57,12 @@ abstract class Application
     protected static $_type_config_defaults = [];
 
     /**
-     * @param array $user_config
+     * @param array $config
      */
-    public function __construct(array $user_config)
+    public function __construct(array $config)
     {
         //better here for overriding
-        $this->setConfig($user_config);
+        $this->setConfig($config);
 
         $this->oauth_client = new Client($this->config['oauth']);
     }
@@ -91,22 +91,23 @@ abstract class Application
      */
     public function getConfig($key)
     {
-        if (!isset($this->config[$key])) {
-            throw new Exception("Invalid configuration key [$key]");
+        if (! isset($this->config[$key])) {
+            throw new Exception("Invalid configuration key [{$key}]");
         }
         return $this->config[$key];
     }
 
     /**
-    * @param string $config
-    * @param mixed $option
-    * @param mixed $value
-    * @return mixed
-    * @throws Exception
-    */
-    public function getConfigOption($config, $option) {
-        if (!isset($this->getConfig($config)[$option])) {
-            throw new Exception("Invalid configuration option [$option]");
+     * @param string $config
+     * @param mixed $option
+     * @param mixed $value
+     * @return mixed
+     * @throws Exception
+     */
+    public function getConfigOption($config, $option)
+    {
+        if (! isset($this->getConfig($config)[$option])) {
+            throw new Exception("Invalid configuration option [{$option}]");
         }
         return $this->getConfig($config)[$option];
     }
@@ -115,7 +116,8 @@ abstract class Application
      * @param array $config
      * @return array
      */
-    public function setConfig($config) {
+    public function setConfig($config)
+    {
         $this->config = array_replace_recursive(
             self::$_config_defaults,
             static::$_type_config_defaults,
@@ -132,9 +134,10 @@ abstract class Application
      * @return array
      * @throws Exception
      */
-    public function setConfigOption($config, $option, $value) {
-        if (!isset($this->config[$config])) {
-            throw new Exception("Invalid configuration key [$config]");
+    public function setConfigOption($config, $option, $value)
+    {
+        if (! isset($this->config[$config])) {
+            throw new Exception("Invalid configuration key [{$config}]");
         }
         $this->config[$config][$option] = $value;
         return $this->config;
@@ -155,8 +158,8 @@ abstract class Application
 
         $class = $this->prependConfigNamespace($class);
 
-        if (!class_exists($class)) {
-            throw new Exception("Class does not exist [$class]");
+        if (! class_exists($class)) {
+            throw new Exception("Class does not exist [{$class}]");
         }
 
         return $class;
@@ -269,7 +272,7 @@ abstract class Application
         //(special saving endpoints)
         $this->savePropertiesDirectly($object);
 
-        if (!$object->isDirty()) {
+        if (! $object->isDirty()) {
             return null;
         }
         $object->validate();
@@ -285,7 +288,7 @@ abstract class Application
             $object->setApplication($this);
         }
 
-        if (!$object::supportsMethod($method)) {
+        if (! $object::supportsMethod($method)) {
             throw new Exception(sprintf('%s doesn\'t support [%s] via the API', get_class($object), $method));
         }
 
@@ -308,17 +311,19 @@ abstract class Application
 
     /**
      * @param Collection|array $objects
+     * @param mixed $checkGuid
+     * @param mixed $replace_data
      * @return Remote\Response
      * @throws Exception
      */
-    public function saveAll($objects, $checkGuid = true)
+    public function saveAll($objects, $checkGuid = true, $replace_data = false)
     {
         $objects = array_values($objects);
 
         //Just get one type to compare with, doesn't matter which.
         $current_object = $objects[0];
         /**
-         * @var Object $type
+         * @var Remote\Model $type
          */
         $type = get_class($current_object);
         $has_guid = $checkGuid ? $current_object->hasGUID() : true;
@@ -354,7 +359,7 @@ abstract class Application
 
         foreach ($response->getElements() as $element_index => $element) {
             if ($response->getErrorsForElement($element_index) === null) {
-                $objects[$element_index]->fromStringArray($element);
+                $objects[$element_index]->fromStringArray($element, $replace_data);
                 $objects[$element_index]->setClean();
             }
         }
@@ -377,14 +382,14 @@ abstract class Application
             if ($meta[Remote\Model::KEY_SAVE_DIRECTLY] && $object->isDirty($property_name)) {
                 //Then actually save
                 $property_objects = $object->$property_name;
-                /** @var Object $property_type */
+                /** @var Remote\Model $property_type */
                 $property_type = get_class(current($property_objects));
 
                 $url = new URL($this, sprintf('%s/%s/%s', $object::getResourceURI(), $object->getGUID(), $property_type::getResourceURI()));
                 $request = new Request($this, $url, Request::METHOD_PUT);
 
                 $property_array = [];
-                /** @var Object[] $property_objects */
+                /** @var Remote\Model[] $property_objects */
                 foreach ($property_objects as $property_object) {
                     $property_array[] = $property_object->toStringArray(false);
                 }
@@ -415,7 +420,7 @@ abstract class Application
      */
     public function delete(Remote\Model $object)
     {
-        if (!$object::supportsMethod(Request::METHOD_DELETE)) {
+        if (! $object::supportsMethod(Request::METHOD_DELETE)) {
             throw new Exception(
                 sprintf(
                     '%s doesn\'t support [DELETE] via the API',

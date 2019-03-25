@@ -1,11 +1,11 @@
 <?php
+
 namespace XeroPHP\Models\PayrollAU\Payslip;
 
 use XeroPHP\Remote;
 
 class SuperannuationLine extends Remote\Model
 {
-
     /**
      * Xero identifier for payroll super fund membership ID
      *
@@ -316,6 +316,4 @@ class SuperannuationLine extends Remote\Model
         $this->_data['Amount'] = $value;
         return $this;
     }
-
-
 }

@@ -1,11 +1,11 @@
 <?php
+
 namespace XeroPHP\Models\Accounting\Contact;
 
 use XeroPHP\Remote;
 
 class ContactPerson extends Remote\Model
 {
-
     /**
      * First name of person
      *
@@ -186,6 +186,4 @@ class ContactPerson extends Remote\Model
         $this->_data['IncludeInEmails'] = $value;
         return $this;
     }
-
-
 }

@@ -1,15 +1,17 @@
 <?php
+
 namespace XeroPHP\Models\Accounting;
 
 use XeroPHP\Remote;
+use XeroPHP\Traits\HistoryTrait;
 use XeroPHP\Traits\AttachmentTrait;
-use XeroPHP\Models\Accounting\RepeatingInvoice\Schedule;
 use XeroPHP\Models\Accounting\RepeatingInvoice\LineItem;
+use XeroPHP\Models\Accounting\RepeatingInvoice\Schedule;
 
 class RepeatingInvoice extends Remote\Model
 {
-
     use AttachmentTrait;
+    use HistoryTrait;
 
     /**
      * See Invoice Types
@@ -261,7 +263,7 @@ class RepeatingInvoice extends Remote\Model
     public function addLineItem(LineItem $value)
     {
         $this->propertyUpdated('LineItems', $value);
-        if (!isset($this->_data['LineItems'])) {
+        if (! isset($this->_data['LineItems'])) {
             $this->_data['LineItems'] = new Remote\Collection();
         }
         $this->_data['LineItems'][] = $value;
@@ -451,6 +453,7 @@ class RepeatingInvoice extends Remote\Model
      * @deprecated - this is a read only property and this method will be removed in future versions
      * @param $value
      */
-    public function setHasAttachment($value){}
-
+    public function setHasAttachment($value)
+    {
+    }
 }

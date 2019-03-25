@@ -1,13 +1,13 @@
 <?php
+
 namespace XeroPHP\Models\PayrollAU;
 
 use XeroPHP\Remote;
 
 class SuperFundProduct extends Remote\Model
 {
-
     /**
-     * The ABN of the Regulated SuperFund (e.g 40022701955)
+     * The ABN of the Regulated SuperFund (e.g 40022701955)
      *
      * @property string ABN
      */
@@ -191,6 +191,4 @@ class SuperFundProduct extends Remote\Model
         $this->_data['ProductName'] = $value;
         return $this;
     }
-
-
 }

@@ -1,11 +1,11 @@
 <?php
+
 namespace XeroPHP\Models\Files;
 
 use XeroPHP\Remote;
 
 class File extends Remote\Model
 {
-
     /**
      * The name of the file
      *
@@ -295,6 +295,4 @@ class File extends Remote\Model
         $this->_data['Id'] = $value;
         return $this;
     }
-
-
 }

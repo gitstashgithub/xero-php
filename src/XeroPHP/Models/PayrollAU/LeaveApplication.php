@@ -1,4 +1,5 @@
 <?php
+
 namespace XeroPHP\Models\PayrollAU;
 
 use XeroPHP\Remote;
@@ -6,7 +7,6 @@ use XeroPHP\Models\PayrollAU\LeaveApplication\LeavePeriod;
 
 class LeaveApplication extends Remote\Model
 {
-
     /**
      * Xero identifier
      *
@@ -26,7 +26,7 @@ class LeaveApplication extends Remote\Model
      */
 
     /**
-     * The title of the leave (max length = 50)
+     * The title of the leave (max length = 50)
      *
      * @property string Title
      */
@@ -44,7 +44,7 @@ class LeaveApplication extends Remote\Model
      */
 
     /**
-     * The Description of the Leave (max length = 200)
+     * The Description of the Leave (max length = 200)
      *
      * @property string Description
      */
@@ -294,12 +294,10 @@ class LeaveApplication extends Remote\Model
     public function addLeavePeriod(LeavePeriod $value)
     {
         $this->propertyUpdated('LeavePeriods', $value);
-        if (!isset($this->_data['LeavePeriods'])) {
+        if (! isset($this->_data['LeavePeriods'])) {
             $this->_data['LeavePeriods'] = new Remote\Collection();
         }
         $this->_data['LeavePeriods'][] = $value;
         return $this;
     }
-
-
 }

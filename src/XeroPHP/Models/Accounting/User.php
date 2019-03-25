@@ -1,11 +1,11 @@
 <?php
+
 namespace XeroPHP\Models\Accounting;
 
 use XeroPHP\Remote;
 
 class User extends Remote\Model
 {
-
     /**
      * Xero identifier
      *
@@ -265,6 +265,4 @@ class User extends Remote\Model
         $this->_data['OrganisationRole'] = $value;
         return $this;
     }
-
-
 }

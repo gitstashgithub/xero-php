@@ -1,19 +1,21 @@
 <?php
+
 namespace XeroPHP\Models\Accounting;
 
 use XeroPHP\Remote;
 use XeroPHP\Exception;
 use XeroPHP\Traits\PDFTrait;
-use XeroPHP\Traits\AttachmentTrait;
+use XeroPHP\Traits\HistoryTrait;
 use XeroPHP\Traits\SendEmailTrait;
+use XeroPHP\Traits\AttachmentTrait;
 use XeroPHP\Models\Accounting\Invoice\LineItem;
 
 class Invoice extends Remote\Model
 {
-
     use PDFTrait;
     use AttachmentTrait;
     use SendEmailTrait;
+    use HistoryTrait;
 
     /**
      * See Invoice Types
@@ -210,16 +212,16 @@ class Invoice extends Remote\Model
     const INVOICE_TYPE_ACCPAY = 'ACCPAY';
     const INVOICE_TYPE_ACCREC = 'ACCREC';
 
-    const INVOICE_STATUS_DRAFT      = 'DRAFT';
-    const INVOICE_STATUS_SUBMITTED  = 'SUBMITTED';
-    const INVOICE_STATUS_DELETED    = 'DELETED';
+    const INVOICE_STATUS_DRAFT = 'DRAFT';
+    const INVOICE_STATUS_SUBMITTED = 'SUBMITTED';
+    const INVOICE_STATUS_DELETED = 'DELETED';
     const INVOICE_STATUS_AUTHORISED = 'AUTHORISED';
-    const INVOICE_STATUS_PAID       = 'PAID';
-    const INVOICE_STATUS_VOIDED     = 'VOIDED';
+    const INVOICE_STATUS_PAID = 'PAID';
+    const INVOICE_STATUS_VOIDED = 'VOIDED';
 
     const LINEAMOUNT_TYPE_EXCLUSIVE = 'Exclusive';
     const LINEAMOUNT_TYPE_INCLUSIVE = 'Inclusive';
-    const LINEAMOUNT_TYPE_NOTAX     = 'NoTax';
+    const LINEAMOUNT_TYPE_NOTAX = 'NoTax';
 
 
     /**
@@ -375,10 +377,10 @@ class Invoice extends Remote\Model
      */
     public function getLineItems()
     {
-	    if (!isset($this->_data['LineItems'])) {
+        if (! isset($this->_data['LineItems'])) {
             $this->_data['LineItems'] = new Remote\Collection();
         }
-        
+
         return $this->_data['LineItems'];
     }
 
@@ -389,7 +391,7 @@ class Invoice extends Remote\Model
     public function addLineItem(LineItem $value)
     {
         $this->propertyUpdated('LineItems', $value);
-        if (!isset($this->_data['LineItems'])) {
+        if (! isset($this->_data['LineItems'])) {
             $this->_data['LineItems'] = new Remote\Collection();
         }
         $this->_data['LineItems'][] = $value;
@@ -800,13 +802,13 @@ class Invoice extends Remote\Model
      */
     public function getOnlineInvoiceUrl()
     {
-        if (!$this->hasGUID()) {
+        if (! $this->hasGUID()) {
             throw new Exception('Unable to retrieve the online invoice URL as the invoice has no GUID');
         }
 
         return $this->onlineInvoiceRequest()
-                    ->send()
-                    ->getElements()[0]['OnlineInvoiceUrl'];
+            ->send()
+            ->getElements()[0]['OnlineInvoiceUrl'];
     }
 
     /**
@@ -817,7 +819,8 @@ class Invoice extends Remote\Model
     protected function onlineInvoiceRequest()
     {
         return new Remote\Request(
-            $this->_application, $this->onlineInvoiceRemoteUrl()
+            $this->_application,
+            $this->onlineInvoiceRemoteUrl()
         );
     }
 
@@ -829,9 +832,8 @@ class Invoice extends Remote\Model
     protected function onlineInvoiceRemoteUrl()
     {
         return new Remote\URL(
-            $this->_application, 'Invoices/'.$this->getGUID().'/OnlineInvoice'
+            $this->_application,
+            'Invoices/'.$this->getGUID().'/OnlineInvoice'
         );
     }
-
-
 }

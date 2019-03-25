@@ -1,11 +1,11 @@
 <?php
+
 namespace XeroPHP\Models\PayrollUS\Timesheet;
 
 use XeroPHP\Remote;
 
 class TimesheetLine extends Remote\Model
 {
-
     /**
      * The Xero identifier for an Earnings Type
      *
@@ -167,7 +167,7 @@ class TimesheetLine extends Remote\Model
     public function addNumberOfUnit($value)
     {
         $this->propertyUpdated('NumberOfUnits', $value);
-        if (!isset($this->_data['NumberOfUnits'])) {
+        if (! isset($this->_data['NumberOfUnits'])) {
             $this->_data['NumberOfUnits'] = new Remote\Collection();
         }
         $this->_data['NumberOfUnits'][] = $value;
@@ -192,6 +192,4 @@ class TimesheetLine extends Remote\Model
         $this->_data['WorkLocationID'] = $value;
         return $this;
     }
-
-
 }

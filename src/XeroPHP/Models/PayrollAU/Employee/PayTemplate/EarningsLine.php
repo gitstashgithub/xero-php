@@ -1,11 +1,11 @@
 <?php
+
 namespace XeroPHP\Models\PayrollAU\Employee\PayTemplate;
 
 use XeroPHP\Remote;
 
 class EarningsLine extends Remote\Model
 {
-
     /**
      * Xero earnings rate identifier
      *
@@ -42,9 +42,9 @@ class EarningsLine extends Remote\Model
      * @property string NormalNumberOfUnits
      */
 
-     const EARNINGSRATECALCULATIONTYPE_USEEARNINGSRATE   = 'USEEARNINGSRATE';
-     const EARNINGSRATECALCULATIONTYPE_ENTEREARNINGSRATE = 'ENTEREARNINGSRATE';
-     const EARNINGSRATECALCULATIONTYPE_ANNUALSALARY      = 'ANNUALSALARY';
+    const EARNINGSRATECALCULATIONTYPE_USEEARNINGSRATE = 'USEEARNINGSRATE';
+    const EARNINGSRATECALCULATIONTYPE_ENTEREARNINGSRATE = 'ENTEREARNINGSRATE';
+    const EARNINGSRATECALCULATIONTYPE_ANNUALSALARY = 'ANNUALSALARY';
 
     /**
      * Get the resource uri of the class (Contacts) etc

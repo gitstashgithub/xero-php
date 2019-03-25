@@ -1,4 +1,5 @@
 <?php
+
 namespace XeroPHP\Models\Accounting;
 
 use XeroPHP\Remote;
@@ -7,7 +8,6 @@ use XeroPHP\Models\Accounting\ManualJournal\JournalLine;
 
 class ManualJournal extends Remote\Model
 {
-
     use AttachmentTrait;
 
     /**
@@ -71,10 +71,10 @@ class ManualJournal extends Remote\Model
      */
 
 
-    const MANUAL_JOURNAL_STATUS_DRAFT   = 'DRAFT';
-    const MANUAL_JOURNAL_STATUS_POSTED  = 'POSTED';
+    const MANUAL_JOURNAL_STATUS_DRAFT = 'DRAFT';
+    const MANUAL_JOURNAL_STATUS_POSTED = 'POSTED';
     const MANUAL_JOURNAL_STATUS_DELETED = 'DELETED';
-    const MANUAL_JOURNAL_STATUS_VOIDED  = 'VOIDED';
+    const MANUAL_JOURNAL_STATUS_VOIDED = 'VOIDED';
 
 
     /**
@@ -219,7 +219,7 @@ class ManualJournal extends Remote\Model
     public function addJournalLine(JournalLine $value)
     {
         $this->propertyUpdated('JournalLines', $value);
-        if (!isset($this->_data['JournalLines'])) {
+        if (! isset($this->_data['JournalLines'])) {
             $this->_data['JournalLines'] = new Remote\Collection();
         }
         $this->_data['JournalLines'][] = $value;
@@ -337,7 +337,4 @@ class ManualJournal extends Remote\Model
     {
         return $this->_data['UpdatedDateUTC'];
     }
-
-
-
 }

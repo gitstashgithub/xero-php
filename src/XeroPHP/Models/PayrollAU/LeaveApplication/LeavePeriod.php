@@ -1,11 +1,11 @@
 <?php
+
 namespace XeroPHP\Models\PayrollAU\LeaveApplication;
 
 use XeroPHP\Remote;
 
 class LeavePeriod extends Remote\Model
 {
-
     /**
      * The Number of Units for the leave
      *
@@ -186,6 +186,4 @@ class LeavePeriod extends Remote\Model
         $this->_data['LeavePeriodStatus'] = $value;
         return $this;
     }
-
-
 }

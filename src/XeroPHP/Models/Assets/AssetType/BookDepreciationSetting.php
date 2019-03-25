@@ -1,11 +1,11 @@
 <?php
+
 namespace XeroPHP\Models\Assets\AssetType;
 
 use XeroPHP\Remote;
 
 class BookDepreciationSetting extends Remote\Model
 {
-
     /**
      * The method of depreciation applied to this asset. See Depreciation Methods
      *
@@ -191,7 +191,7 @@ class BookDepreciationSetting extends Remote\Model
     public function addeffectiveLifeYear($value)
     {
         $this->propertyUpdated('effectiveLifeYears', $value);
-        if (!isset($this->_data['effectiveLifeYears'])) {
+        if (! isset($this->_data['effectiveLifeYears'])) {
             $this->_data['effectiveLifeYears'] = new Remote\Collection();
         }
         $this->_data['effectiveLifeYears'][] = $value;
@@ -216,6 +216,4 @@ class BookDepreciationSetting extends Remote\Model
         $this->_data['depreciationCalculationMethod'] = $value;
         return $this;
     }
-
-
 }

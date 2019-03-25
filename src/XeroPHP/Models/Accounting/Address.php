@@ -1,13 +1,13 @@
 <?php
+
 namespace XeroPHP\Models\Accounting;
 
 use XeroPHP\Remote;
 
 class Address extends Remote\Model
 {
-
     /**
-     * 
+     *
      *
      * @property string AddressType
      */
@@ -67,8 +67,8 @@ class Address extends Remote\Model
      */
 
 
-    const ADDRESS_TYPE_POBOX    = 'POBOX';
-    const ADDRESS_TYPE_STREET   = 'STREET';
+    const ADDRESS_TYPE_POBOX = 'POBOX';
+    const ADDRESS_TYPE_STREET = 'STREET';
     const ADDRESS_TYPE_DELIVERY = 'DELIVERY';
 
 
@@ -346,6 +346,4 @@ class Address extends Remote\Model
         $this->_data['AttentionTo'] = $value;
         return $this;
     }
-
-
 }

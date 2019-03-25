@@ -102,17 +102,17 @@ class Helpers
     public static function singularize($string)
     {
         $singular = [
-            '/(vert|ind)ices$/i'    => "$1ex",
-            '/(alias)es$/i'         => "$1",
-            '/(x|ch|ss|sh)es$/i'    => "$1",
-            '/(s)eries$/i'          => "$1eries",
-            '/(s)tatus$/i'          => "$1tatus",
+            '/(vert|ind)ices$/i' => "$1ex",
+            '/(alias)es$/i' => "$1",
+            '/(x|ch|ss|sh)es$/i' => "$1",
+            '/(s)eries$/i' => "$1eries",
+            '/(s)tatus$/i' => "$1tatus",
             '/([^aeiouy]|qu)ies$/i' => "$1y",
-            '/([lr])ves$/i'         => "$1f",
-            '/([ti])a$/i'           => "$1um",
-            '/(us)es$/i'            => "$1",
-            '/(basis)$/i'           => "$1",
-            '/([^s])s$/i'           => "$1"
+            '/([lr])ves$/i' => "$1f",
+            '/([ti])a$/i' => "$1um",
+            '/(us)es$/i' => "$1",
+            '/(basis)$/i' => "$1",
+            '/([^s])s$/i' => "$1"
         ];
 
         // check for matches using regular expressions
@@ -129,22 +129,22 @@ class Helpers
     public static function pluralize($string)
     {
         $plural = [
-            '/(quiz)$/i'                     => "$1zes",
-            '/(matr|vert|ind)ix|ex$/i'       => "$1ices",
-            '/(x|ch|ss|sh)$/i'               => "$1es",
-            '/([^aeiouy]|qu)y$/i'            => "$1ies",
-            '/(hive)$/i'                     => "$1s",
-            '/(?:([^f])fe|([lr])f)$/i'       => "$1$2ves",
-            '/(shea|lea|loa|thie)f$/i'       => "$1ves",
-            '/sis$/i'                        => "ses",
-            '/([ti])um$/i'                   => "$1a",
+            '/(quiz)$/i' => "$1zes",
+            '/(matr|vert|ind)ix|ex$/i' => "$1ices",
+            '/(x|ch|ss|sh)$/i' => "$1es",
+            '/([^aeiouy]|qu)y$/i' => "$1ies",
+            '/(hive)$/i' => "$1s",
+            '/(?:([^f])fe|([lr])f)$/i' => "$1$2ves",
+            '/(shea|lea|loa|thie)f$/i' => "$1ves",
+            '/sis$/i' => "ses",
+            '/([ti])um$/i' => "$1a",
             '/(tomat|potat|ech|her|vet)o$/i' => "$1oes",
-            '/(bu)s$/i'                      => "$1ses",
-            '/(alias)$/i'                    => "$1es",
-            '/(ax|test)is$/i'                => "$1es",
-            '/(us)$/i'                       => "$1es",
-            '/s$/i'                          => "s",
-            '/$/'                            => "s"
+            '/(bu)s$/i' => "$1ses",
+            '/(alias)$/i' => "$1es",
+            '/(ax|test)is$/i' => "$1es",
+            '/(us)$/i' => "$1es",
+            '/s$/i' => "s",
+            '/$/' => "s"
         ];
 
         // check for matches using regular expressions
@@ -170,7 +170,7 @@ class Helpers
      * @param string $format
      * @param string|null $glue
      * @param bool $escape
-     * @return string|array If no glue provided, it won't be imploded.
+     * @return string|array if no glue provided, it won't be imploded
      */
     public static function flattenAssocArray(
         array $array,
@@ -207,5 +207,48 @@ class Helpers
     public static function escape($string)
     {
         return rawurlencode($string);
+    }
+
+    /**
+     * @param $knownString string
+     * @param $userInput string
+     * @return bool
+     * @see https://github.com/symfony/polyfill-php56
+     */
+    public static function hashEquals($knownString, $userInput)
+    {
+        if (PHP_VERSION_ID >= 50600) {
+            return hash_equals($knownString, $userInput);
+        }
+
+        if (! is_string($knownString)) {
+            trigger_error('Expected known_string to be a string, '.gettype($knownString).' given', E_USER_WARNING);
+            return false;
+        }
+
+        if (! is_string($userInput)) {
+            trigger_error('Expected user_input to be a string, '.gettype($userInput).' given', E_USER_WARNING);
+            return false;
+        }
+
+        if (extension_loaded('mbstring')) {
+            $knownLen = mb_strlen($knownString, '8bit');
+            $userLen = mb_strlen($userInput, '8bit');
+        } else {
+            $knownLen = strlen($knownString);
+            $userLen = strlen($userInput);
+        }
+
+        if ($knownLen !== $userLen) {
+            return false;
+        }
+
+        $result = 0;
+
+        for ($i = 0; $i < $knownLen; ++$i) {
+            $result |= ord($knownString[$i]) ^ ord($userInput[$i]);
+        }
+
+        return $result === 0;
     }
 }

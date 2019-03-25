@@ -1,4 +1,5 @@
 <?php
+
 namespace XeroPHP\Models\PayrollUS;
 
 use XeroPHP\Remote;
@@ -7,7 +8,6 @@ use XeroPHP\Models\PayrollUS\Setting\TrackingCategory;
 
 class Setting extends Remote\Model
 {
-
     /**
      * Payroll Account details for Bank, WagesPayable and WagesExpense. See Accounts
      *
@@ -116,7 +116,7 @@ class Setting extends Remote\Model
     public function addAccount(Account $value)
     {
         $this->propertyUpdated('Accounts', $value);
-        if (!isset($this->_data['Accounts'])) {
+        if (! isset($this->_data['Accounts'])) {
             $this->_data['Accounts'] = new Remote\Collection();
         }
         $this->_data['Accounts'][] = $value;
@@ -139,12 +139,10 @@ class Setting extends Remote\Model
     public function addTrackingCategory(TrackingCategory $value)
     {
         $this->propertyUpdated('TrackingCategories', $value);
-        if (!isset($this->_data['TrackingCategories'])) {
+        if (! isset($this->_data['TrackingCategories'])) {
             $this->_data['TrackingCategories'] = new Remote\Collection();
         }
         $this->_data['TrackingCategories'][] = $value;
         return $this;
     }
-
-
 }

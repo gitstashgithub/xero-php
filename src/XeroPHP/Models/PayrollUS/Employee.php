@@ -1,27 +1,27 @@
 <?php
+
 namespace XeroPHP\Models\PayrollUS;
 
 use XeroPHP\Remote;
 use XeroPHP\Models\PayrollUS\Employee\HomeAddress;
-use XeroPHP\Models\PayrollUS\Employee\MailingAddress;
-use XeroPHP\Models\PayrollUS\Employee\SalaryAndWage;
+use XeroPHP\Models\PayrollUS\Employee\PayTemplate;
 use XeroPHP\Models\PayrollUS\Employee\WorkLocation;
 use XeroPHP\Models\PayrollUS\Employee\PaymentMethod;
-use XeroPHP\Models\PayrollUS\Employee\PayTemplate;
+use XeroPHP\Models\PayrollUS\Employee\SalaryAndWage;
+use XeroPHP\Models\PayrollUS\Employee\MailingAddress;
 use XeroPHP\Models\PayrollUS\Employee\OpeningBalance;
 use XeroPHP\Models\PayrollUS\Employee\TimeOffBalance;
 
 class Employee extends Remote\Model
 {
-
     /**
-     * First name of employee (max length = 35)
+     * First name of employee (max length = 35)
      *
      * @property string FirstName
      */
 
     /**
-     * Last name of employee (max length = 35)
+     * Last name of employee (max length = 35)
      *
      * @property string LastName
      */
@@ -39,7 +39,7 @@ class Employee extends Remote\Model
      */
 
     /**
-     * Middle name(s) of the employee (max length = 35)
+     * Middle name(s) of the employee (max length = 35)
      *
      * @property string MiddleNames
      */
@@ -693,7 +693,7 @@ class Employee extends Remote\Model
     public function addSalaryAndWage(SalaryAndWage $value)
     {
         $this->propertyUpdated('SalaryAndWages', $value);
-        if (!isset($this->_data['SalaryAndWages'])) {
+        if (! isset($this->_data['SalaryAndWages'])) {
             $this->_data['SalaryAndWages'] = new Remote\Collection();
         }
         $this->_data['SalaryAndWages'][] = $value;
@@ -716,7 +716,7 @@ class Employee extends Remote\Model
     public function addWorkLocation(WorkLocation $value)
     {
         $this->propertyUpdated('WorkLocations', $value);
-        if (!isset($this->_data['WorkLocations'])) {
+        if (! isset($this->_data['WorkLocations'])) {
             $this->_data['WorkLocations'] = new Remote\Collection();
         }
         $this->_data['WorkLocations'][] = $value;
@@ -777,7 +777,7 @@ class Employee extends Remote\Model
     public function addOpeningBalance(OpeningBalance $value)
     {
         $this->propertyUpdated('OpeningBalances', $value);
-        if (!isset($this->_data['OpeningBalances'])) {
+        if (! isset($this->_data['OpeningBalances'])) {
             $this->_data['OpeningBalances'] = new Remote\Collection();
         }
         $this->_data['OpeningBalances'][] = $value;
@@ -800,7 +800,7 @@ class Employee extends Remote\Model
     public function addTimeOffBalance(TimeOffBalance $value)
     {
         $this->propertyUpdated('TimeOffBalances', $value);
-        if (!isset($this->_data['TimeOffBalances'])) {
+        if (! isset($this->_data['TimeOffBalances'])) {
             $this->_data['TimeOffBalances'] = new Remote\Collection();
         }
         $this->_data['TimeOffBalances'][] = $value;
@@ -863,6 +863,4 @@ class Employee extends Remote\Model
         $this->_data['UpdatedDateUTC'] = $value;
         return $this;
     }
-
-
 }

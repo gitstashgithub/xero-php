@@ -2,11 +2,11 @@
 
 namespace XeroPHP\Remote;
 
-use XeroPHP\Application;
 use XeroPHP\Helpers;
+use XeroPHP\Application;
 
 /**
- * Class Object
+ * Class Model
  * @package XeroPHP\Remote
  *
  * todo - at 2.x, move this into the root of the project and refer to it as a model.
@@ -17,24 +17,22 @@ abstract class Model implements ObjectInterface, \JsonSerializable, \ArrayAccess
     /**
      * Keys for the meta properties array
      */
-    const KEY_MANDATORY      = 0;
-    const KEY_TYPE           = 1;
-    const KEY_PHP_TYPE       = 2;
-    const KEY_IS_ARRAY       = 3;
-    const KEY_SAVE_DIRECTLY  = 4;
+    const KEY_MANDATORY = 0;
+    const KEY_TYPE = 1;
+    const KEY_PHP_TYPE = 2;
+    const KEY_IS_ARRAY = 3;
+    const KEY_SAVE_DIRECTLY = 4;
 
-    /**
-     *
-     */
-    const PROPERTY_TYPE_STRING    = 'string';
-    const PROPERTY_TYPE_INT       = 'int';
-    const PROPERTY_TYPE_FLOAT     = 'float';
-    const PROPERTY_TYPE_BOOLEAN   = 'bool';
-    const PROPERTY_TYPE_ENUM      = 'enum';
-    const PROPERTY_TYPE_GUID      = 'guid';
-    const PROPERTY_TYPE_DATE      = 'date';
+
+    const PROPERTY_TYPE_STRING = 'string';
+    const PROPERTY_TYPE_INT = 'int';
+    const PROPERTY_TYPE_FLOAT = 'float';
+    const PROPERTY_TYPE_BOOLEAN = 'bool';
+    const PROPERTY_TYPE_ENUM = 'enum';
+    const PROPERTY_TYPE_GUID = 'guid';
+    const PROPERTY_TYPE_DATE = 'date';
     const PROPERTY_TYPE_TIMESTAMP = 'timestamp';
-    const PROPERTY_TYPE_OBJECT    = 'object';
+    const PROPERTY_TYPE_OBJECT = 'object';
 
     /**
      * Container to the actual properties of the object
@@ -178,17 +176,16 @@ abstract class Model implements ObjectInterface, \JsonSerializable, \ArrayAccess
      */
     public function fromStringArray($input_array, $replace_data = false)
     {
-
         foreach (static::getProperties() as $property => $meta) {
             $type = $meta[self::KEY_TYPE];
             $php_type = $meta[self::KEY_PHP_TYPE];
 
             //If set and NOT replace data, continue
-            if (!$replace_data && isset($this->_data[$property])) {
+            if (! $replace_data && isset($this->_data[$property])) {
                 continue;
             }
 
-            if (!isset($input_array[$property])) {
+            if (! isset($input_array[$property])) {
                 $this->_data[$property] = null;
                 continue;
             }
@@ -223,17 +220,18 @@ abstract class Model implements ObjectInterface, \JsonSerializable, \ArrayAccess
      * Convert the object into an array, and any non-primitives to string.
      *
      * @return array
+     * @param mixed $dirty_only
      */
     public function toStringArray($dirty_only = false)
     {
         $out = [];
         foreach (static::getProperties() as $property => $meta) {
-            if (!isset($this->_data[$property])) {
+            if (! isset($this->_data[$property])) {
                 continue;
             }
 
             //if we only want the dirty props, stop here
-            if($dirty_only && !isset($this->_dirty[$property])) {
+            if ($dirty_only && ! isset($this->_dirty[$property])) {
                 continue;
             }
 
@@ -288,7 +286,7 @@ abstract class Model implements ObjectInterface, \JsonSerializable, \ArrayAccess
                 return '';
             default:
                 if (is_scalar($value)) {
-                    return (string)$value;
+                    return (string) $value;
                 }
                 return '';
         }
@@ -310,10 +308,10 @@ abstract class Model implements ObjectInterface, \JsonSerializable, \ArrayAccess
         switch ($type) {
 
             case self::PROPERTY_TYPE_INT:
-                return intval($value);
+                return (int) $value;
 
             case self::PROPERTY_TYPE_FLOAT:
-                return floatval($value);
+                return (float) $value;
 
             case self::PROPERTY_TYPE_BOOLEAN:
                 return in_array(strtolower($value), ['true', '1', 'yes']);
@@ -322,8 +320,9 @@ abstract class Model implements ObjectInterface, \JsonSerializable, \ArrayAccess
             case self::PROPERTY_TYPE_TIMESTAMP:
                 $timezone = new \DateTimeZone('UTC');
 
+                // no break
             case self::PROPERTY_TYPE_DATE:
-                if (preg_match('/Date\((?<timestamp>[0-9\+\.]+)\)/', $value, $matches)) { //to catch stupid .net date serialisation
+                if (preg_match('/Date\\((?<timestamp>[0-9\\+\\.]+)\\)/', $value, $matches)) { //to catch stupid .net date serialisation
                     $value = $matches['timestamp'];
                 }
                 return new \DateTime($value, $timezone);
@@ -357,8 +356,8 @@ abstract class Model implements ObjectInterface, \JsonSerializable, \ArrayAccess
             $mandatory = $meta[self::KEY_MANDATORY];
 
             //If it's got a GUID, it's already going to be valid almost all cases
-            if (!$this->hasGUID() && $mandatory) {
-                if (!isset($this->_data[$property]) || empty($this->_data[$property])) {
+            if (! $this->hasGUID() && $mandatory) {
+                if (! isset($this->_data[$property]) || empty($this->_data[$property])) {
                     throw new Exception(
                         sprintf(
                             '%s::$%s is mandatory and is either missing or empty.',
@@ -425,7 +424,7 @@ abstract class Model implements ObjectInterface, \JsonSerializable, \ArrayAccess
 
     /**
      * @param string $property
-     * @param Object $object
+     * @param Model $object
      */
     public function addAssociatedObject($property, Model $object)
     {
@@ -482,7 +481,7 @@ abstract class Model implements ObjectInterface, \JsonSerializable, \ArrayAccess
 
     protected function propertyUpdated($property, $value)
     {
-        if (!isset($this->_data[$property]) || $this->_data[$property] !== $value) {
+        if (! isset($this->_data[$property]) || $this->_data[$property] !== $value) {
             //If this object can update itself, set its own dirty flag, otherwise, set its parent's.
             if (count(array_intersect($this::getSupportedMethods(), [Request::METHOD_PUT, Request::METHOD_POST])) > 0) {
                 //Object can update itself

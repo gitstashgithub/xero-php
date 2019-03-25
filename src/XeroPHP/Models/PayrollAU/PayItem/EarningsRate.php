@@ -1,11 +1,11 @@
 <?php
+
 namespace XeroPHP\Models\PayrollAU\PayItem;
 
 use XeroPHP\Remote;
 
 class EarningsRate extends Remote\Model
 {
-
     /**
      * Name of the earnings rate (max length = 100)
      *
@@ -88,14 +88,14 @@ class EarningsRate extends Remote\Model
      */
 
 
-    const EARNINGSTYPE_FIXED                = 'FIXED';
+    const EARNINGSTYPE_FIXED = 'FIXED';
     const EARNINGSTYPE_ORDINARYTIMEEARNINGS = 'ORDINARYTIMEEARNINGS';
-    const EARNINGSTYPE_OVERTIMEEARNINGS     = 'OVERTIMEEARNINGS';
-    const EARNINGSTYPE_ALLOWANCE            = 'ALLOWANCE';
-    const EARNINGSTYPE_LUMPSUMD             = 'LUMPSUMD';
+    const EARNINGSTYPE_OVERTIMEEARNINGS = 'OVERTIMEEARNINGS';
+    const EARNINGSTYPE_ALLOWANCE = 'ALLOWANCE';
+    const EARNINGSTYPE_LUMPSUMD = 'LUMPSUMD';
 
     const RATETYPE_FIXEDAMOUNT = 'FIXEDAMOUNT';
-    const RATETYPE_MULTIPLE    = 'MULTIPLE';
+    const RATETYPE_MULTIPLE = 'MULTIPLE';
     const RATETYPE_RATEPERUNIT = 'RATEPERUNIT';
 
 
@@ -435,6 +435,4 @@ class EarningsRate extends Remote\Model
         $this->_data['Amount'] = $value;
         return $this;
     }
-
-
 }

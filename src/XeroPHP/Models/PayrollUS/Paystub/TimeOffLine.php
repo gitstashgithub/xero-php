@@ -1,11 +1,11 @@
 <?php
+
 namespace XeroPHP\Models\PayrollUS\Paystub;
 
 use XeroPHP\Remote;
 
 class TimeOffLine extends Remote\Model
 {
-
     /**
      * Xero identifier for payroll time off type
      *
@@ -160,6 +160,4 @@ class TimeOffLine extends Remote\Model
         $this->_data['Balance'] = $value;
         return $this;
     }
-
-
 }

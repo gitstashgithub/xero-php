@@ -1,11 +1,11 @@
 <?php
+
 namespace XeroPHP\Models\PayrollUS\Employee;
 
 use XeroPHP\Remote;
 
 class SalaryAndWage extends Remote\Model
 {
-
     /**
      * This property has been removed from the Xero API
      *
@@ -293,6 +293,4 @@ class SalaryAndWage extends Remote\Model
         $this->_data['EffectiveDate'] = $value;
         return $this;
     }
-
-
 }

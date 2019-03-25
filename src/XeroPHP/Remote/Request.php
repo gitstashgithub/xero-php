@@ -2,25 +2,25 @@
 
 namespace XeroPHP\Remote;
 
-use XeroPHP\Application;
 use XeroPHP\Helpers;
+use XeroPHP\Application;
 
 class Request
 {
-    const METHOD_GET    = 'GET';
-    const METHOD_PUT    = 'PUT';
-    const METHOD_POST   = 'POST';
+    const METHOD_GET = 'GET';
+    const METHOD_PUT = 'PUT';
+    const METHOD_POST = 'POST';
     const METHOD_DELETE = 'DELETE';
 
     const CONTENT_TYPE_HTML = 'text/html';
-    const CONTENT_TYPE_XML  = 'text/xml';
+    const CONTENT_TYPE_XML = 'text/xml';
     const CONTENT_TYPE_JSON = 'application/json';
-    const CONTENT_TYPE_PDF  = 'application/pdf';
+    const CONTENT_TYPE_PDF = 'application/pdf';
 
-    const HEADER_ACCEPT            = 'Accept';
-    const HEADER_CONTENT_TYPE      = 'Content-Type';
-    const HEADER_CONTENT_LENGTH    = 'Content-Length';
-    const HEADER_AUTHORIZATION     = 'Authorization';
+    const HEADER_ACCEPT = 'Accept';
+    const HEADER_CONTENT_TYPE = 'Content-Type';
+    const HEADER_CONTENT_LENGTH = 'Content-Length';
+    const HEADER_AUTHORIZATION = 'Authorization';
     const HEADER_IF_MODIFIED_SINCE = 'If-Modified-Since';
 
     private $app;
@@ -50,7 +50,7 @@ class Request
                 $this->method = $method;
                 break;
             default:
-                throw new Exception("Invalid request method [$method]");
+                throw new Exception("Invalid request method [{$method}]");
         }
 
         //Default to XML so you get the  xsi:type attribute in the root node.
@@ -90,7 +90,7 @@ class Request
         $query_string = Helpers::flattenAssocArray($this->getParameters(), '%s=%s', '&', true);
 
         if (strlen($query_string) > 0) {
-            $full_uri .= "?$query_string";
+            $full_uri .= "?{$query_string}";
         }
         curl_setopt($ch, CURLOPT_URL, $full_uri);
 
@@ -98,16 +98,34 @@ class Request
             curl_setopt($ch, CURLOPT_POST, true);
         }
 
-        // Minute Limit: 60 calls in a rolling 60 second window
-        sleep(1);
+        $headers = [];
+        curl_setopt($ch, CURLOPT_HEADERFUNCTION, function ($curl, $header) use (&$headers) {
+            $len = strlen($header);
+            if (strpos($header, ':') === false) {
+                return $len;
+            }
+
+            list($name, $value) = explode(':', $header, 2);
+            $name = strtolower(trim($name));
+            $value = trim($value);
+            if (! array_key_exists($name, $headers)) {
+                $headers[$name] = [];
+            }
+            $headers[$name][] = $value;
+
+            return $len;
+        });
+
         $response = curl_exec($ch);
         $info = curl_getinfo($ch);
 
         if ($response === false) {
-            throw new Exception('Curl error: ' . curl_error($ch));
+            throw new Exception('Curl error: '.curl_error($ch));
         }
 
-        $this->response = new Response($this, $response, $info);
+        // Minute Limit: 60 calls in a rolling 60 second window
+        sleep(1);
+        $this->response = new Response($this, $response, $info, $headers);
         $this->response->parse();
 
         return $this->response;
@@ -130,7 +148,7 @@ class Request
      */
     public function getHeader($key)
     {
-        if (!isset($this->headers[$key])) {
+        if (! isset($this->headers[$key])) {
             return null;
         }
         return $this->headers[$key];

@@ -1,4 +1,5 @@
 <?php
+
 namespace XeroPHP\Models\Accounting\Invoice;
 
 use XeroPHP\Remote;
@@ -6,7 +7,6 @@ use XeroPHP\Models\Accounting\TrackingCategory;
 
 class LineItem extends Remote\Model
 {
-
     /**
      * LineItem Description
      *
@@ -356,7 +356,7 @@ class LineItem extends Remote\Model
     public function addTracking(TrackingCategory $value)
     {
         $this->propertyUpdated('Tracking', $value);
-        if (!isset($this->_data['Tracking'])) {
+        if (! isset($this->_data['Tracking'])) {
             $this->_data['Tracking'] = new Remote\Collection();
         }
         $this->_data['Tracking'][] = $value;
@@ -381,6 +381,4 @@ class LineItem extends Remote\Model
         $this->_data['DiscountRate'] = $value;
         return $this;
     }
-
-
 }

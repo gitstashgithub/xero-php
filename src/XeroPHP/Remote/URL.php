@@ -14,13 +14,13 @@ use XeroPHP\Application;
  */
 class URL
 {
-    const API_CORE    = 'api.xro';
+    const API_CORE = 'api.xro';
     const API_PAYROLL = 'payroll.xro';
-    const API_FILE    = 'files.xro';
-    const API_ASSET   = 'assets.xro';
+    const API_FILE = 'files.xro';
+    const API_ASSET = 'assets.xro';
 
     const OAUTH_REQUEST_TOKEN = 'RequestToken';
-    const OAUTH_ACCESS_TOKEN  = 'AccessToken';
+    const OAUTH_ACCESS_TOKEN = 'AccessToken';
 
     /**
      * @var string The base API URL for the ap type
@@ -80,7 +80,7 @@ class URL
         $this->endpoint = $endpoint;
 
         //Check here that the URI hasn't been set by one of the OAuth methods and handle as normal
-        if (!isset($this->path)) {
+        if (! isset($this->path)) {
             switch ($api) {
                 case self::API_CORE:
                     $version = $xero_config['core_version'];
@@ -92,7 +92,7 @@ class URL
                     $version = $xero_config['file_version'];
                     break;
                 default:
-                    throw new Exception('Invalid API passed to XeroPHP\URL::__construct(). Must be XeroPHP\URL::API_*');
+                    throw new Exception('Invalid API passed to XeroPHP\\URL::__construct(). Must be XeroPHP\\URL::API_*');
             }
 
             $this->path = sprintf('%s/%s/%s', $api, $version, $this->endpoint);

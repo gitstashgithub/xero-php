@@ -1,11 +1,10 @@
 <?php
-    namespace XeroPHP\Models\PayrollAU;
+namespace XeroPHP\Models\PayrollAU;
 
 use XeroPHP\Remote;
 
 class SuperFund extends Remote\Model
 {
-
     /**
      * Xero identifier
      *
@@ -332,5 +331,4 @@ class SuperFund extends Remote\Model
         $this->_data['Name'] = $value;
         return $this;
     }
-
 }

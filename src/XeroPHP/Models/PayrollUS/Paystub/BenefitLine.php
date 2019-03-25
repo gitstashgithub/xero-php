@@ -1,11 +1,11 @@
 <?php
+
 namespace XeroPHP\Models\PayrollUS\Paystub;
 
 use XeroPHP\Remote;
 
 class BenefitLine extends Remote\Model
 {
-
     /**
      * Xero identifier for payroll benefit type
      *
@@ -134,6 +134,4 @@ class BenefitLine extends Remote\Model
         $this->_data['Amount'] = $value;
         return $this;
     }
-
-
 }

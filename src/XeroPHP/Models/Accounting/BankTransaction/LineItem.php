@@ -1,4 +1,5 @@
 <?php
+
 namespace XeroPHP\Models\Accounting\BankTransaction;
 
 use XeroPHP\Remote;
@@ -6,7 +7,6 @@ use XeroPHP\Models\Accounting\TrackingCategory;
 
 class LineItem extends Remote\Model
 {
-
     /**
      * Description needs to be at least 1 char long.
      *
@@ -322,12 +322,10 @@ class LineItem extends Remote\Model
     public function addTracking(TrackingCategory $value)
     {
         $this->propertyUpdated('Tracking', $value);
-        if (!isset($this->_data['Tracking'])) {
+        if (! isset($this->_data['Tracking'])) {
             $this->_data['Tracking'] = new Remote\Collection();
         }
         $this->_data['Tracking'][] = $value;
         return $this;
     }
-
-
 }

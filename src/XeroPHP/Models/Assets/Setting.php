@@ -1,11 +1,11 @@
 <?php
+
 namespace XeroPHP\Models\Assets;
 
 use XeroPHP\Remote;
 
 class Setting extends Remote\Model
 {
-
     /**
      * The prefix used for fixed asset numbers (“FA-” by default)
      *
@@ -49,7 +49,7 @@ class Setting extends Remote\Model
      */
 
     /**
-     * 
+     *
      *
      * @property string optInForTax
      */
@@ -291,6 +291,4 @@ class Setting extends Remote\Model
         $this->_data['optInForTax'] = $value;
         return $this;
     }
-
-
 }

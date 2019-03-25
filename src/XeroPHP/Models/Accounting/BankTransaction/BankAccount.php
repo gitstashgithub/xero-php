@@ -1,11 +1,11 @@
 <?php
+
 namespace XeroPHP\Models\Accounting\BankTransaction;
 
 use XeroPHP\Remote;
 
 class BankAccount extends Remote\Model
 {
-
     /**
      * BankAccount code (this value may not always be present for a bank account)
      *
@@ -134,6 +134,4 @@ class BankAccount extends Remote\Model
         $this->_data['AccountID'] = $value;
         return $this;
     }
-
-
 }

@@ -1,14 +1,14 @@
 <?php
+
 namespace XeroPHP\Models\PayrollUS\Employee;
 
 use XeroPHP\Remote;
+use XeroPHP\Models\PayrollUS\Paystub\BenefitLine;
 use XeroPHP\Models\PayrollUS\Paystub\DeductionLine;
 use XeroPHP\Models\PayrollUS\Paystub\ReimbursementLine;
-use XeroPHP\Models\PayrollUS\Paystub\BenefitLine;
 
 class PayTemplate extends Remote\Model
 {
-
     /**
      * The earnings rate lines
      *
@@ -100,11 +100,11 @@ class PayTemplate extends Remote\Model
      */
 
 
-    const DEDUCTION_LINE_CALCULATION_TYPE_FIXEDAMOUNT       = 'FIXEDAMOUNT';
-    const DEDUCTION_LINE_CALCULATION_TYPE_STANDARDAMOUNT    = 'STANDARDAMOUNT';
+    const DEDUCTION_LINE_CALCULATION_TYPE_FIXEDAMOUNT = 'FIXEDAMOUNT';
+    const DEDUCTION_LINE_CALCULATION_TYPE_STANDARDAMOUNT = 'STANDARDAMOUNT';
     const DEDUCTION_LINE_CALCULATION_TYPE_PERCENTAGEOFGROSS = 'PERCENTAGEOFGROSS';
 
-    const BENEFIT_LINE_CALCULATION_TYPE_FIXEDAMOUNT    = 'FIXEDAMOUNT';
+    const BENEFIT_LINE_CALCULATION_TYPE_FIXEDAMOUNT = 'FIXEDAMOUNT';
     const BENEFIT_LINE_CALCULATION_TYPE_STANDARDAMOUNT = 'STANDARDAMOUNT';
 
 
@@ -214,7 +214,7 @@ class PayTemplate extends Remote\Model
     public function addEarningsLine($value)
     {
         $this->propertyUpdated('EarningsLines', $value);
-        if (!isset($this->_data['EarningsLines'])) {
+        if (! isset($this->_data['EarningsLines'])) {
             $this->_data['EarningsLines'] = new Remote\Collection();
         }
         $this->_data['EarningsLines'][] = $value;
@@ -237,7 +237,7 @@ class PayTemplate extends Remote\Model
     public function addDeductionLine(DeductionLine $value)
     {
         $this->propertyUpdated('DeductionLines', $value);
-        if (!isset($this->_data['DeductionLines'])) {
+        if (! isset($this->_data['DeductionLines'])) {
             $this->_data['DeductionLines'] = new Remote\Collection();
         }
         $this->_data['DeductionLines'][] = $value;
@@ -260,7 +260,7 @@ class PayTemplate extends Remote\Model
     public function addReimbursementLine(ReimbursementLine $value)
     {
         $this->propertyUpdated('ReimbursementLines', $value);
-        if (!isset($this->_data['ReimbursementLines'])) {
+        if (! isset($this->_data['ReimbursementLines'])) {
             $this->_data['ReimbursementLines'] = new Remote\Collection();
         }
         $this->_data['ReimbursementLines'][] = $value;
@@ -283,7 +283,7 @@ class PayTemplate extends Remote\Model
     public function addBenefitLine(BenefitLine $value)
     {
         $this->propertyUpdated('BenefitLines', $value);
-        if (!isset($this->_data['BenefitLines'])) {
+        if (! isset($this->_data['BenefitLines'])) {
             $this->_data['BenefitLines'] = new Remote\Collection();
         }
         $this->_data['BenefitLines'][] = $value;
@@ -498,6 +498,4 @@ class PayTemplate extends Remote\Model
         $this->_data['BenefitTypeID'] = $value;
         return $this;
     }
-
-
 }

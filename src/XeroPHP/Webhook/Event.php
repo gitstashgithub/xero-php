@@ -2,8 +2,8 @@
 
 namespace XeroPHP\Webhook;
 
-use XeroPHP\Remote\Request;
 use XeroPHP\Remote\URL;
+use XeroPHP\Remote\Request;
 
 /**
  * Represents a single event within a webhook
@@ -64,8 +64,8 @@ class Event
         ];
 
         foreach ($fields as $required) {
-            if (!isset($event[$required])) {
-                throw new \XeroPHP\Application\Exception("The event payload was malformed; missing required field $required");
+            if (! isset($event[$required])) {
+                throw new \XeroPHP\Application\Exception("The event payload was malformed; missing required field {$required}");
             }
 
             $this->{$required} = $event[$required];

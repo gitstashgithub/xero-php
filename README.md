@@ -6,7 +6,7 @@ XeroPHP
 [![Total Downloads](https://poser.pugx.org/calcinai/xero-php/downloads)](https://packagist.org/packages/calcinai/xero-php)
 
 A client library for the [Xero API](<http://developer.xero.com>), including an OAuth interface and ORM-like abstraction.
- 
+
 This is loosely based on the functional flow of XeroAPI/XeroOAuth-PHP, but is split logically into more of an OO design.
 
 This library has been tested with Private, Public and Partner applications.
@@ -90,6 +90,14 @@ If you have created a number of objects of the same type, you can save them all 
 
 From v1.2.0+, Xero context can be injected directly when creating the objects themselves, which then exposes the ```->save()``` method.  This is necessary for the objects to maintain state with their relations.
 
+Saving related models
+
+If you are saving several models at once, by default additional model attributes are not updated. This means if you are saving an invoice with a new contact, the contacts `ContactID` is not updated. If you want the related models attributes to be updated you can pass a boolean flag with `true` to the save method.
+
+```php
+$xero->save($invoice, true);
+```
+
 Nested objects
 ```php
 $invoice = $xero->loadByGUID(Invoice::class, '[GUID]');
@@ -114,3 +122,84 @@ To set the `IncludeOnline` flag on the attachment, pass `true` as the second par
 PDF - Models that support PDF export will inherit a ```->getPDF()``` method, which returns the raw content of the PDF.  Currently this is limited to Invoices and CreditNotes.
 
 Refer to the [examples](examples) for more complex usage and nested/related objects.  There's also [a sample PHP app](https://github.com/XeroAPI/xero-php-sample-app) using this library.
+
+## Webhooks
+
+If you are receiving webhooks from Xero there is `Webhook` class that can help with handling the request and parsing the associated event list.
+
+```php
+$webhook = new Webhook($application, $request->getContent());
+
+/**
+ * @return int
+ */
+$webhook->getFirstEventSequence();
+
+/**
+ * @return int
+ */
+$webhook->getLastEventSequence();
+
+/**
+ * @return \XeroPHP\Webhook\Event[]
+ */
+$webhook->getEvents();
+```
+
+See: [Webhooks documentation](https://developer.xero.com/documentation/webhooks/overview)
+
+### Validating Webhooks
+
+To ensure the webhooks are coming from Xero you should validate the incoming request header that Xero provides.
+
+```php
+if (! $webhook->validate($request->headers->get('x-xero-signature'))) {
+    throw new Exception('This request did not come from Xero');
+}
+```
+
+See: [Signature documentation](https://developer.xero.com/documentation/webhooks/configuring-your-server#intent)
+
+## Handling Errors
+
+Your request to Xero may cause an error which you will want to handle. You might run into errors such as:
+
+- `HTTP 400 Bad Request` by sending invalid data, like a malformed email address.
+- `HTTP 503 Rate Limit Exceeded` by hitting the API to quickly in a short period of time.
+- `HTTP 400 Bad Request` by requesting a resource that does not exist.
+
+These are just a couple of examples and you should read the official documentation to find out more about the possible errors.
+
+### Thrown exceptions
+
+This library will parse the response Xero returns and throw an exception when it hits one of these errors. Below is a table showing the response code and corresponding exception that is thrown:
+
+| HTTP Code | Exception |
+| --------- | ------------- |
+| 400 Bad Request | `\XeroPHP\Remote\Exception\BadRequestException` |
+| 401 Unauthorized | `\XeroPHP\Remote\Exception\UnauthorizedException` |
+| 403 Forbidden | `\XeroPHP\Remote\Exception\UnauthorizedException` |
+| 404 Not Found | `\XeroPHP\Remote\Exception\NotFoundException` |
+| 500 Internal Error | `\XeroPHP\Remote\Exception\InternalErrorException` |
+| 501 Not Implemented | `\XeroPHP\Remote\Exception\NotImplementedException` |
+| 503 Rate Limit Exceeded | `\XeroPHP\Remote\Exception\RateLimitExceededException` |
+| 503 Not Available | `\XeroPHP\Remote\Exception\NotAvailableException` |
+| 503 Organisation offline | `\XeroPHP\Remote\Exception\OrganisationOfflineException` |
+
+See: [Response codes and errors documentation](https://developer.xero.com/documentation/api/http-response-codes)
+
+### Handling exceptions
+
+To catch and handle these exceptions you can wrap the request in a try / catch block and deal with each exception as needed.
+
+```php
+try {
+    $xero->save($invoice);
+} catch (NotFoundException $exception) {
+    // handle not found error
+} catch (RateLimitExceededException $exception) {
+    // handle rate limit error
+}
+```
+
+See: [Working with exceptions](https://secure.php.net/manual/en/language.exceptions.php)

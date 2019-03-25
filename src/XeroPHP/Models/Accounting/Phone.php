@@ -1,13 +1,13 @@
 <?php
+
 namespace XeroPHP\Models\Accounting;
 
 use XeroPHP\Remote;
 
 class Phone extends Remote\Model
 {
-
     /**
-     * 
+     *
      *
      * @property string PhoneType
      */
@@ -32,9 +32,9 @@ class Phone extends Remote\Model
 
 
     const PHONE_TYPE_DEFAULT = 'DEFAULT';
-    const PHONE_TYPE_DDI     = 'DDI';
-    const PHONE_TYPE_MOBILE  = 'MOBILE';
-    const PHONE_TYPE_FAX     = 'FAX';
+    const PHONE_TYPE_DDI = 'DDI';
+    const PHONE_TYPE_MOBILE = 'MOBILE';
+    const PHONE_TYPE_FAX = 'FAX';
 
 
     /**
@@ -191,6 +191,4 @@ class Phone extends Remote\Model
         $this->_data['PhoneCountryCode'] = $value;
         return $this;
     }
-
-
 }

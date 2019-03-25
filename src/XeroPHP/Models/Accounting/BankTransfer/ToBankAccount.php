@@ -1,11 +1,11 @@
 <?php
+
 namespace XeroPHP\Models\Accounting\BankTransfer;
 
 use XeroPHP\Remote;
 
 class ToBankAccount extends Remote\Model
 {
-
     /**
      * The Account Code of the Bank Account
      *
@@ -149,7 +149,4 @@ class ToBankAccount extends Remote\Model
     {
         return $this->_data['Name'];
     }
-
-
-
 }

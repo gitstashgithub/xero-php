@@ -1,11 +1,11 @@
 <?php
+
 namespace XeroPHP\Models\Files;
 
 use XeroPHP\Remote;
 
 class Association extends Remote\Model
 {
-
     /**
      * The identifier of the object that the file is being associated with (e.g. InvoiceID,
      * BankTransactionID, ContactID)
@@ -165,6 +165,4 @@ class Association extends Remote\Model
         $this->_data['ObjectType'] = $value;
         return $this;
     }
-
-
 }

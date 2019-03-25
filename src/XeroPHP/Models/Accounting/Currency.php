@@ -1,11 +1,11 @@
 <?php
+
 namespace XeroPHP\Models\Accounting;
 
 use XeroPHP\Remote;
 
 class Currency extends Remote\Model
 {
-
     /**
      * This property has been removed from the Xero API
      *
@@ -165,6 +165,4 @@ class Currency extends Remote\Model
         $this->_data['Description'] = $value;
         return $this;
     }
-
-
 }

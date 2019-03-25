@@ -1,4 +1,5 @@
 <?php
+
 namespace XeroPHP\Models\Accounting\Report;
 
 class BankStatement extends Report
@@ -12,6 +13,4 @@ class BankStatement extends Report
     {
         return 'Reports/BankStatement';
     }
-
-
 }

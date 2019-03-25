@@ -1,11 +1,11 @@
 <?php
+
 namespace XeroPHP\Models\PayrollAU\SuperFund;
 
 use XeroPHP\Remote;
 
 class SuperFund extends Remote\Model
 {
-
     /**
      * SMSF see Super Fund Types
      *
@@ -72,7 +72,7 @@ class SuperFund extends Remote\Model
 
 
     const TYPE_REGULATED = 'REGULATED';
-    const TYPE_SMSF      = 'SMSF';
+    const TYPE_SMSF = 'SMSF';
 
 
     /**
@@ -351,6 +351,4 @@ class SuperFund extends Remote\Model
         $this->_data['SPIN'] = $value;
         return $this;
     }
-
-
 }
