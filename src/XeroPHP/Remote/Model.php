@@ -6,43 +6,50 @@ use XeroPHP\Helpers;
 use XeroPHP\Application;
 
 /**
- * Class Model
- * @package XeroPHP\Remote
- *
- * todo - at 2.x, move this into the root of the project and refer to it as a model.
- * Also make this an ArrayObject to simplify storage
+ * Class Model.
  */
 abstract class Model implements ObjectInterface, \JsonSerializable, \ArrayAccess
 {
     /**
-     * Keys for the meta properties array
+     * Keys for the meta properties array.
      */
     const KEY_MANDATORY = 0;
+
     const KEY_TYPE = 1;
+
     const KEY_PHP_TYPE = 2;
+
     const KEY_IS_ARRAY = 3;
+
     const KEY_SAVE_DIRECTLY = 4;
 
-
     const PROPERTY_TYPE_STRING = 'string';
+
     const PROPERTY_TYPE_INT = 'int';
+
     const PROPERTY_TYPE_FLOAT = 'float';
+
     const PROPERTY_TYPE_BOOLEAN = 'bool';
+
     const PROPERTY_TYPE_ENUM = 'enum';
+
     const PROPERTY_TYPE_GUID = 'guid';
+
     const PROPERTY_TYPE_DATE = 'date';
+
     const PROPERTY_TYPE_TIMESTAMP = 'timestamp';
+
     const PROPERTY_TYPE_OBJECT = 'object';
 
     /**
-     * Container to the actual properties of the object
+     * Container to the actual properties of the object.
      *
      * @var array
      */
     protected $_data;
 
     /**
-     * Holds a record of which properties have been changed
+     * Holds a record of which properties have been changed.
      *
      * @var array
      */
@@ -57,9 +64,9 @@ abstract class Model implements ObjectInterface, \JsonSerializable, \ArrayAccess
 
     /**
      * Holds a ref to the application that was used to load the object,
-     * enables shorthand $object->save();
+     * enables shorthand $object->save();.
      *
-     * @var Application $_application
+     * @var Application
      */
     protected $_application;
 
@@ -76,6 +83,7 @@ abstract class Model implements ObjectInterface, \JsonSerializable, \ArrayAccess
      * but will have to be like this for BC until the next major version.
      *
      * @param Application $application
+     *
      * @return $this
      */
     public function setApplication(Application $application)
@@ -96,36 +104,40 @@ abstract class Model implements ObjectInterface, \JsonSerializable, \ArrayAccess
     }
 
     /**
-     * If there have been any properties changed since load
+     * If there have been any properties changed since load.
      *
      * @param null $property
+     *
      * @return bool
      */
     public function isDirty($property = null)
     {
         if ($property === null) {
             return count($this->_dirty) > 0;
-        } else {
-            return isset($this->_dirty[$property]);
         }
+
+        return isset($this->_dirty[$property]);
     }
 
     /**
-     * Manually set a property as dirty
+     * Manually set a property as dirty.
      *
      * @param $property
+     *
      * @return self
      */
     public function setDirty($property)
     {
         $this->_dirty[$property] = true;
+
         return $this;
     }
 
     /**
-     * Manually set a property as clean
+     * Manually set a property as clean.
      *
      * @param null $property
+     *
      * @return self
      */
     public function setClean($property = null)
@@ -135,11 +147,12 @@ abstract class Model implements ObjectInterface, \JsonSerializable, \ArrayAccess
         } else {
             unset($this->_dirty[$property]);
         }
+
         return $this;
     }
 
     /**
-     * This is used to detect if the object has copy at the source
+     * This is used to detect if the object has copy at the source.
      *
      * @return bool
      */
@@ -158,6 +171,7 @@ abstract class Model implements ObjectInterface, \JsonSerializable, \ArrayAccess
 
     /**
      * @param string $guid
+     *
      * @return $this
      */
     public function setGUID($guid)
@@ -169,7 +183,7 @@ abstract class Model implements ObjectInterface, \JsonSerializable, \ArrayAccess
 
     /**
      * Load an assoc array into the instance of the object $property => $value
-     * $replace_data - replace existing data
+     * $replace_data - replace existing data.
      *
      * @param $input_array
      * @param $replace_data
@@ -187,6 +201,7 @@ abstract class Model implements ObjectInterface, \JsonSerializable, \ArrayAccess
 
             if (! isset($input_array[$property])) {
                 $this->_data[$property] = null;
+
                 continue;
             }
 
@@ -199,7 +214,7 @@ abstract class Model implements ObjectInterface, \JsonSerializable, \ArrayAccess
                 foreach ($input_array[$property] as $assoc_element) {
                     $cast = self::castFromString($type, $assoc_element, $php_type);
                     //Do this here so that you know it's not a static method call to ::castFromString
-                    if ($cast instanceof Model) {
+                    if ($cast instanceof self) {
                         $cast->addAssociatedObject($property, $this);
                     }
                     $collection->append($cast);
@@ -208,7 +223,7 @@ abstract class Model implements ObjectInterface, \JsonSerializable, \ArrayAccess
             } else {
                 $cast = self::castFromString($type, $input_array[$property], $php_type);
                 //Do this here so that you know it's not a static method call to ::castFromString
-                if ($cast instanceof Model) {
+                if ($cast instanceof self) {
                     $cast->addAssociatedObject($property, $this);
                 }
                 $this->_data[$property] = $cast;
@@ -219,8 +234,9 @@ abstract class Model implements ObjectInterface, \JsonSerializable, \ArrayAccess
     /**
      * Convert the object into an array, and any non-primitives to string.
      *
-     * @return array
      * @param mixed $dirty_only
+     *
+     * @return array
      */
     public function toStringArray($dirty_only = false)
     {
@@ -246,15 +262,16 @@ abstract class Model implements ObjectInterface, \JsonSerializable, \ArrayAccess
                 $out[$property] = self::castToString($type, $this->_data[$property]);
             }
         }
+
         return $out;
     }
-
 
     /**
      * Convert properties to strings, based on the types parsed.
      *
      * @param $type
      * @param $value
+     *
      * @return string
      */
     public static function castToString($type, $value)
@@ -269,25 +286,27 @@ abstract class Model implements ObjectInterface, \JsonSerializable, \ArrayAccess
 
             case self::PROPERTY_TYPE_DATE:
                 /**
-                 * @var \DateTimeInterface $value
+                 * @var \DateTimeInterface
                  */
                 return $value->format('Y-m-d');
 
             case self::PROPERTY_TYPE_TIMESTAMP:
                 /**
-                 * @var \DateTimeInterface $value
+                 * @var \DateTimeInterface
                  */
                 return $value->format('c');
 
             case self::PROPERTY_TYPE_OBJECT:
-                if ($value instanceof Model) {
+                if ($value instanceof self) {
                     return $value->toStringArray();
                 }
+
                 return '';
             default:
                 if (is_scalar($value)) {
                     return (string) $value;
                 }
+
                 return '';
         }
     }
@@ -298,6 +317,7 @@ abstract class Model implements ObjectInterface, \JsonSerializable, \ArrayAccess
      * @param $type
      * @param $value
      * @param $php_type
+     *
      * @return bool|\DateTimeInterface|float|int|string
      */
     public static function castFromString($type, $value, $php_type)
@@ -314,7 +334,7 @@ abstract class Model implements ObjectInterface, \JsonSerializable, \ArrayAccess
                 return (float) $value;
 
             case self::PROPERTY_TYPE_BOOLEAN:
-                return in_array(strtolower($value), ['true', '1', 'yes']);
+                return in_array(strtolower($value), ['true', '1', 'yes'], true);
 
             /** @noinspection PhpMissingBreakStatementInspection */
             case self::PROPERTY_TYPE_TIMESTAMP:
@@ -325,6 +345,7 @@ abstract class Model implements ObjectInterface, \JsonSerializable, \ArrayAccess
                 if (preg_match('/Date\\((?<timestamp>[0-9\\+\\.]+)\\)/', $value, $matches)) { //to catch stupid .net date serialisation
                     $value = $matches['timestamp'];
                 }
+
                 return new \DateTime($value, $timezone);
 
             case self::PROPERTY_TYPE_OBJECT:
@@ -332,12 +353,14 @@ abstract class Model implements ObjectInterface, \JsonSerializable, \ArrayAccess
                 /** @var self $instance */
                 $instance = new $php_type();
                 $instance->fromStringArray($value);
+
                 return $instance;
 
             default:
                 if (is_scalar($value)) {
                     return (string) $value;
                 }
+
                 return (object) $value;
         }
     }
@@ -346,8 +369,10 @@ abstract class Model implements ObjectInterface, \JsonSerializable, \ArrayAccess
      * Validate the object and (optionally) the child objects recursively.
      *
      * @param bool $check_children
-     * @return bool
+     *
      * @throws Exception
+     *
+     * @return bool
      */
     public function validate($check_children = true)
     {
@@ -368,14 +393,14 @@ abstract class Model implements ObjectInterface, \JsonSerializable, \ArrayAccess
                 }
 
                 if ($check_children) {
-                    if ($this->_data[$property] instanceof Model) {
+                    if ($this->_data[$property] instanceof self) {
                         //Keep IDEs happy
                         /** @var self $obj */
                         $obj = $this->_data[$property];
                         $obj->validate();
                     } elseif ($this->_data[$property] instanceof Collection) {
                         foreach ($this->_data[$property] as $element) {
-                            if ($element instanceof Model) {
+                            if ($element instanceof self) {
                                 $element->validate();
                             }
                         }
@@ -387,12 +412,12 @@ abstract class Model implements ObjectInterface, \JsonSerializable, \ArrayAccess
         return true;
     }
 
-
     /**
      * Shorthand save an object if it is instantiated with app context.
      *
-     * @return Response|null
      * @throws Exception
+     *
+     * @return Response|null
      */
     public function save()
     {
@@ -408,8 +433,9 @@ abstract class Model implements ObjectInterface, \JsonSerializable, \ArrayAccess
     /**
      * Shorthand delete an object if it is instantiated with app context.
      *
-     * @return Response|null
      * @throws Exception
+     *
+     * @return Response|null
      */
     public function delete()
     {
@@ -426,15 +452,16 @@ abstract class Model implements ObjectInterface, \JsonSerializable, \ArrayAccess
      * @param string $property
      * @param Model $object
      */
-    public function addAssociatedObject($property, Model $object)
+    public function addAssociatedObject($property, self $object)
     {
         $this->_associated_objects[$property] = $object;
     }
 
     /**
-     * Magic method for testing if properties exist
+     * Magic method for testing if properties exist.
      *
      * @param $property
+     *
      * @return bool
      */
     public function __isset($property)
@@ -443,9 +470,10 @@ abstract class Model implements ObjectInterface, \JsonSerializable, \ArrayAccess
     }
 
     /**
-     * Magic getter for accessing properties directly
+     * Magic getter for accessing properties directly.
      *
      * @param $property
+     *
      * @return mixed
      */
     public function __get($property)
@@ -457,14 +485,16 @@ abstract class Model implements ObjectInterface, \JsonSerializable, \ArrayAccess
         }
 
         trigger_error(sprintf("Undefined property %s::$%s.\n", __CLASS__, $property));
-        return null;
+
+        
     }
 
     /**
-     * Magic setter for setting properties directly
+     * Magic setter for setting properties directly.
      *
      * @param $property
      * @param $value
+     *
      * @return mixed
      */
     public function __set($property, $value)
@@ -476,7 +506,8 @@ abstract class Model implements ObjectInterface, \JsonSerializable, \ArrayAccess
         }
 
         trigger_error(sprintf("Undefined property %s::$%s.\n", __CLASS__, $property));
-        return null;
+
+        
     }
 
     protected function propertyUpdated($property, $value)
@@ -496,18 +527,19 @@ abstract class Model implements ObjectInterface, \JsonSerializable, \ArrayAccess
     }
 
     /**
-     * If the object supports a specific HTTP method
+     * If the object supports a specific HTTP method.
      *
      * @param $method
+     *
      * @return bool
      */
     public static function supportsMethod($method)
     {
-        return in_array($method, static::getSupportedMethods());
+        return in_array($method, static::getSupportedMethods(), true);
     }
 
     /**
-     * JSON Encode overload to pull out hidden properties
+     * JSON Encode overload to pull out hidden properties.
      *
      * @return string
      */
@@ -518,6 +550,7 @@ abstract class Model implements ObjectInterface, \JsonSerializable, \ArrayAccess
 
     /**
      * @param mixed $offset
+     *
      * @return bool
      */
     public function offsetExists($offset)
@@ -527,6 +560,7 @@ abstract class Model implements ObjectInterface, \JsonSerializable, \ArrayAccess
 
     /**
      * @param mixed $offset
+     *
      * @return mixed
      */
     public function offsetGet($offset)
@@ -537,6 +571,7 @@ abstract class Model implements ObjectInterface, \JsonSerializable, \ArrayAccess
     /**
      * @param mixed $offset
      * @param mixed $value
+     *
      * @return mixed
      */
     public function offsetSet($offset, $value)

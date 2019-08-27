@@ -16,22 +16,34 @@ use XeroPHP\Remote\Exception\OrganisationOfflineException;
 class Response
 {
     const STATUS_OK = 200;
+
     const STATUS_BAD_REQUEST = 400;
+
     const STATUS_UNAUTHORISED = 401;
+
     const STATUS_FORBIDDEN = 403;
+
     const STATUS_NOT_FOUND = 404;
+
     const STATUS_INTERNAL_ERROR = 500;
+
     const STATUS_NOT_IMPLEMENTED = 501;
 
     //Seriously, 1 code for 3 different things!
     const STATUS_NOT_AVAILABLE = 503;
+
     const STATUS_RATE_LIMIT_EXCEEDED = 503;
+
     const STATUS_ORGANISATION_OFFLINE = 503;
 
     private $request;
+
     private $headers;
+
     private $status;
+
     private $content_type;
+
     private $response_body;
 
     private $oauth_response;
@@ -39,6 +51,7 @@ class Response
     private $elements;
 
     private $element_errors;
+
     private $element_warnings;
 
     private $root_error;
@@ -69,9 +82,9 @@ class Response
         $this->parseBody();
 
         switch ($this->status) {
-            case Response::STATUS_BAD_REQUEST:
+            case self::STATUS_BAD_REQUEST:
                 //This catches actual app errors
-                if (isset($this->root_error) && !empty($this->root_error)) {
+                if (isset($this->root_error) && ! empty($this->root_error)) {
                     $message = sprintf('%s (%s)',
                         array_key_exists('message', $this->root_error) ? $this->root_error['message'] : 'no-root-error',
                         implode(', ', $this->element_errors)
@@ -79,45 +92,47 @@ class Response
                     $message .= $this->parseBadRequest();
                     throw new BadRequestException($message,
                         array_key_exists('message', $this->root_error) ? $this->root_error['code'] : null);
-                } else {
-                    throw new BadRequestException();
                 }
+
+                throw new BadRequestException();
 
             /** @noinspection PhpMissingBreakStatementInspection */
             // no break
-            case Response::STATUS_UNAUTHORISED:
+            case self::STATUS_UNAUTHORISED:
                 //This is where OAuth errors end up, this could maybe change to an OAuth exception
                 if (isset($this->oauth_response['oauth_problem_advice'])) {
                     throw new UnauthorizedException($this->oauth_response['oauth_problem_advice']);
                 }
                 // no break
-            case Response::STATUS_FORBIDDEN:
+            case self::STATUS_FORBIDDEN:
                 throw new UnauthorizedException();
 
-            case Response::STATUS_NOT_FOUND:
+            case self::STATUS_NOT_FOUND:
                 throw new NotFoundException();
 
-            case Response::STATUS_INTERNAL_ERROR:
+            case self::STATUS_INTERNAL_ERROR:
                 throw new InternalErrorException();
 
-            case Response::STATUS_NOT_IMPLEMENTED:
+            case self::STATUS_NOT_IMPLEMENTED:
                 throw new NotImplementedException();
 
-            case Response::STATUS_NOT_AVAILABLE:
-            case Response::STATUS_RATE_LIMIT_EXCEEDED:
-            case Response::STATUS_ORGANISATION_OFFLINE:
+            case self::STATUS_NOT_AVAILABLE:
+            case self::STATUS_RATE_LIMIT_EXCEEDED:
+            case self::STATUS_ORGANISATION_OFFLINE:
                 //There must be a better way than this?
                 $response = urldecode($this->response_body);
                 if (false !== stripos($response, 'Organisation is offline')) {
                     throw new OrganisationOfflineException();
-                } elseif (false !== stripos($response, 'Rate limit exceeded')) {
+                }
+                if (false !== stripos($response, 'Rate limit exceeded')) {
                     $problem = isset($this->headers['x-rate-limit-problem']) ? current($this->headers['x-rate-limit-problem']) : null;
                     $exception = new RateLimitExceededException();
                     $exception->setRateLimitProblem($problem);
+
                     throw $exception;
-                } else {
-                    throw new NotAvailableException();
                 }
+
+                throw new NotAvailableException();
         }
     }
 
@@ -133,6 +148,7 @@ class Response
                     $field_errors[] = $element['ValidationErrors'][0]['Message'];
                 }
             }
+
             return "\nValidation errors:\n".implode("\n", $field_errors);
         }
 
@@ -163,7 +179,8 @@ class Response
         if (isset($this->element_errors[$element_id])) {
             return $this->element_errors[$element_id];
         }
-        return null;
+
+
     }
 
     public function getElementErrors()
@@ -190,6 +207,7 @@ class Response
     {
         if ($this->request->getUrl()->isOAuth()) {
             $this->parseHTML();
+
             return;
         }
 
@@ -201,14 +219,17 @@ class Response
         switch ($this->content_type) {
             case Request::CONTENT_TYPE_XML:
                 $this->parseXML();
+
                 break;
 
             case Request::CONTENT_TYPE_JSON:
                 $this->parseJSON();
+
                 break;
 
             case Request::CONTENT_TYPE_HTML:
                 $this->parseHTML();
+
                 break;
 
             default:
@@ -231,6 +252,7 @@ class Response
                             $this->element_errors[$element_index] = trim($error['Message'], '.');
                         }
                     }
+
                     break;
                 case 'Warnings':
                     if (is_array($value)) {
@@ -238,6 +260,7 @@ class Response
                             $this->element_warnings[$element_index] = trim($warning['Message'], '.');
                         }
                     }
+
                     break;
 
                 default:
@@ -259,17 +282,21 @@ class Response
             switch ($child_index) {
                 case 'ErrorNumber':
                     $this->root_error['code'] = (string) $root_child;
+
                     break;
                 case 'Type':
                     $this->root_error['type'] = (string) $root_child;
+
                     break;
                 case 'Message':
                     $this->root_error['message'] = (string) $root_child;
+
                     break;
                 case 'Payslip':
                 case 'PayItems':
                     // some xero endpoints are 1D so we can parse them straight away
                     $this->elements[] = Helpers::XMLToArray($root_child);
+
                     break;
 
                 default:
@@ -290,17 +317,21 @@ class Response
             switch ($child_index) {
                 case 'ErrorNumber':
                     $this->root_error['code'] = $root_child;
+
                     break;
                 case 'Type':
                     $this->root_error['type'] = $root_child;
+
                     break;
                 case 'Message':
                     $this->root_error['message'] = $root_child;
+
                     break;
                 case 'Payslip':
                 case 'PayItems':
                     // some xero endpoints are 1D so we can parse them straight away
                     $this->elements[] = $root_child;
+
                     break;
 
                 default:

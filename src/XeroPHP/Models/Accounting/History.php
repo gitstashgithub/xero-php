@@ -1,10 +1,7 @@
 <?php
 
-
 namespace XeroPHP\Models\Accounting;
 
-use XeroPHP\Remote\URL;
-use XeroPHP\Application;
 use XeroPHP\Remote\Model;
 use XeroPHP\Remote\Request;
 
@@ -17,25 +14,25 @@ class History extends Model
      */
 
     /**
-     * UTC date that the history record was created
+     * UTC date that the history record was created.
      *
      * @property \DateTimeInterface DateUTC
      */
 
     /**
-     * The user responsible for the change ("System Generated" when the change happens via API)
+     * The user responsible for the change ("System Generated" when the change happens via API).
      *
      * @property string User
      */
 
     /**
-     * Description of the change event or transaction
+     * Description of the change event or transaction.
      *
      * @property string Details
      */
 
     /**
-     * Get the GUID Property if it exists
+     * Get the GUID Property if it exists.
      *
      * @return string
      */
@@ -45,7 +42,7 @@ class History extends Model
     }
 
     /**
-     * Get a list of properties
+     * Get a list of properties.
      *
      * @return array
      */
@@ -55,12 +52,12 @@ class History extends Model
             'Changes' => [false, self::PROPERTY_TYPE_STRING, null, false, false],
             'DateUTC' => [false, self::PROPERTY_TYPE_TIMESTAMP, '\\DateTimeInterface', false, false],
             'User' => [false, self::PROPERTY_TYPE_STRING, null, false, false],
-            'Details' => [true, self::PROPERTY_TYPE_STRING, null, false, false]
+            'Details' => [true, self::PROPERTY_TYPE_STRING, null, false, false],
         ];
     }
 
     /**
-     * Get a list of the supported HTTP Methods
+     * Get a list of the supported HTTP Methods.
      *
      * @return array
      */
@@ -68,12 +65,12 @@ class History extends Model
     {
         return [
             Request::METHOD_GET,
-            Request::METHOD_PUT
+            Request::METHOD_PUT,
         ];
     }
 
     /**
-     * return the URI of the resource (if any)
+     * return the URI of the resource (if any).
      *
      * @return string
      */
@@ -108,12 +105,14 @@ class History extends Model
 
     /**
      * @param string $value
+     *
      * @return History
      */
     public function setDetails($value)
     {
         $this->propertyUpdated('Details', $value);
         $this->_data['Details'] = $value;
+
         return $this;
     }
 

@@ -1,4 +1,5 @@
 <?php
+
 namespace XeroPHP\Models\PayrollAU;
 
 use XeroPHP\Remote;
@@ -6,33 +7,31 @@ use XeroPHP\Remote;
 class SuperFund extends Remote\Model
 {
     /**
-     * Xero identifier
+     * Xero identifier.
      *
      * @property string SuperFundID
      */
 
     /**
-     * REGULATED see Super Fund Types
+     * REGULATED see Super Fund Types.
      *
      * @property string Type
      */
 
     /**
-     * The ABN of the Regulated SuperFund
+     * The ABN of the Regulated SuperFund.
      *
      * @property string ABN
      */
 
     /**
-     * The USI of the Regulated SuperFund
+     * The USI of the Regulated SuperFund.
      *
      * @property string USI
      */
 
-
-
     /**
-     * Get the resource uri of the class (Contacts) etc
+     * Get the resource uri of the class (Contacts) etc.
      *
      * @return string
      */
@@ -41,9 +40,8 @@ class SuperFund extends Remote\Model
         return 'SuperFunds';
     }
 
-
     /**
-     * Get the root node name.  Just the unqualified classname
+     * Get the root node name.  Just the unqualified classname.
      *
      * @return string
      */
@@ -52,9 +50,8 @@ class SuperFund extends Remote\Model
         return 'SuperFund';
     }
 
-
     /**
-     * Get the guid property
+     * Get the guid property.
      *
      * @return string
      */
@@ -63,9 +60,8 @@ class SuperFund extends Remote\Model
         return 'SuperFundID';
     }
 
-
     /**
-     * Get the stem of the API (core.xro) etc
+     * Get the stem of the API (core.xro) etc.
      *
      * @return string|null
      */
@@ -74,26 +70,24 @@ class SuperFund extends Remote\Model
         return Remote\URL::API_PAYROLL;
     }
 
-
     /**
-     * Get the supported methods
+     * Get the supported methods.
      */
     public static function getSupportedMethods()
     {
         return [
             Remote\Request::METHOD_POST,
-            Remote\Request::METHOD_GET
+            Remote\Request::METHOD_GET,
         ];
     }
 
     /**
-     *
      * Get the properties of the object.  Indexed by constants
      *  [0] - Mandatory
      *  [1] - Type
      *  [2] - PHP type
      *  [3] - Is an Array
-     *  [4] - Saves directly
+     *  [4] - Saves directly.
      *
      * @return array
      */
@@ -110,7 +104,7 @@ class SuperFund extends Remote\Model
             'AccountName' => [false, self::PROPERTY_TYPE_STRING, null, false, false],
             'ElectronicServiceAddress' => [false, self::PROPERTY_TYPE_STRING, null, false, false],
             'EmployerNumber' => [false, self::PROPERTY_TYPE_STRING, null, false, false],
-            'SPIN' => [false, self::PROPERTY_TYPE_STRING, null, false, false]
+            'SPIN' => [false, self::PROPERTY_TYPE_STRING, null, false, false],
         ];
     }
 
@@ -129,12 +123,14 @@ class SuperFund extends Remote\Model
 
     /**
      * @param string $value
+     *
      * @return SuperFund
      */
     public function setSuperFundID($value)
     {
         $this->propertyUpdated('SuperFundID', $value);
         $this->_data['SuperFundID'] = $value;
+
         return $this;
     }
 
@@ -148,12 +144,14 @@ class SuperFund extends Remote\Model
 
     /**
      * @param string $value
+     *
      * @return SuperFund
      */
     public function setType($value)
     {
         $this->propertyUpdated('Type', $value);
         $this->_data['Type'] = $value;
+
         return $this;
     }
 
@@ -167,12 +165,14 @@ class SuperFund extends Remote\Model
 
     /**
      * @param string $value
+     *
      * @return SuperFund
      */
     public function setABN($value)
     {
         $this->propertyUpdated('ABN', $value);
         $this->_data['ABN'] = $value;
+
         return $this;
     }
 
@@ -186,12 +186,14 @@ class SuperFund extends Remote\Model
 
     /**
      * @param string $value
+     *
      * @return SuperFund
      */
     public function setUSI($value)
     {
         $this->propertyUpdated('USI', $value);
         $this->_data['USI'] = $value;
+
         return $this;
     }
 
@@ -207,12 +209,14 @@ class SuperFund extends Remote\Model
 
     /**
      * @param string $value
+     *
      * @return SuperFund
      */
     public function setBSB($value)
     {
         $this->propertyUpdated('BSB', $value);
         $this->_data['BSB'] = $value;
+
         return $this;
     }
 
@@ -226,12 +230,14 @@ class SuperFund extends Remote\Model
 
     /**
      * @param string $value
+     *
      * @return SuperFund
      */
     public function setAccountNumber($value)
     {
         $this->propertyUpdated('AccountNumber', $value);
         $this->_data['AccountNumber'] = $value;
+
         return $this;
     }
 
@@ -245,12 +251,14 @@ class SuperFund extends Remote\Model
 
     /**
      * @param string $value
+     *
      * @return SuperFund
      */
     public function setAccountName($value)
     {
         $this->propertyUpdated('AccountName', $value);
         $this->_data['AccountName'] = $value;
+
         return $this;
     }
 
@@ -264,14 +272,17 @@ class SuperFund extends Remote\Model
 
     /**
      * @param string $value
+     *
      * @return SuperFund
      */
     public function setElectronicServiceAddress($value)
     {
         $this->propertyUpdated('ElectronicServiceAddress', $value);
         $this->_data['ElectronicServiceAddress'] = $value;
+
         return $this;
     }
+
     /**
      * @return string
      */
@@ -282,17 +293,20 @@ class SuperFund extends Remote\Model
 
     /**
      * @param string $value
+     *
      * @return SuperFund
      */
     public function setEmployerNumber($value)
     {
         $this->propertyUpdated('EmployerNumber', $value);
         $this->_data['EmployerNumber'] = $value;
+
         return $this;
     }
 
     /**
      * @return string
+     *
      * @deprecated
      */
     public function getSPIN()
@@ -302,16 +316,18 @@ class SuperFund extends Remote\Model
 
     /**
      * @param string $value
+     *
      * @return SuperFund
+     *
      * @deprecated
      */
     public function setSPIN($value)
     {
         $this->propertyUpdated('SPIN', $value);
         $this->_data['SPIN'] = $value;
+
         return $this;
     }
-
 
     /**
      * @return string
@@ -323,12 +339,14 @@ class SuperFund extends Remote\Model
 
     /**
      * @param string $value
+     *
      * @return SuperFund
      */
     public function setName($value)
     {
         $this->propertyUpdated('Name', $value);
         $this->_data['Name'] = $value;
+
         return $this;
     }
 }

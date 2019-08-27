@@ -12,39 +12,37 @@ use XeroPHP\Models\PayrollUS\PayItem\ReimbursementType;
 class PayItem extends Remote\Model
 {
     /**
-     * See EarningsTypes
+     * See EarningsTypes.
      *
      * @property EarningsType[] EarningsTypes
      */
 
     /**
-     * See BenefitTypes
+     * See BenefitTypes.
      *
      * @property BenefitType[] BenefitTypes
      */
 
     /**
-     * See DeductionTypes
+     * See DeductionTypes.
      *
      * @property DeductionType[] DeductionTypes
      */
 
     /**
-     * See ReimbursementTypes
+     * See ReimbursementTypes.
      *
      * @property ReimbursementType[] ReimbursementTypes
      */
 
     /**
-     * See TimeOffTypes
+     * See TimeOffTypes.
      *
      * @property TimeOffType[] TimeOffTypes
      */
 
-
-
     /**
-     * Get the resource uri of the class (Contacts) etc
+     * Get the resource uri of the class (Contacts) etc.
      *
      * @return string
      */
@@ -53,9 +51,8 @@ class PayItem extends Remote\Model
         return 'PayItems';
     }
 
-
     /**
-     * Get the root node name.  Just the unqualified classname
+     * Get the root node name.  Just the unqualified classname.
      *
      * @return string
      */
@@ -64,9 +61,8 @@ class PayItem extends Remote\Model
         return 'PayItem';
     }
 
-
     /**
-     * Get the guid property
+     * Get the guid property.
      *
      * @return string
      */
@@ -75,9 +71,8 @@ class PayItem extends Remote\Model
         return '';
     }
 
-
     /**
-     * Get the stem of the API (core.xro) etc
+     * Get the stem of the API (core.xro) etc.
      *
      * @return string|null
      */
@@ -86,26 +81,24 @@ class PayItem extends Remote\Model
         return Remote\URL::API_PAYROLL;
     }
 
-
     /**
-     * Get the supported methods
+     * Get the supported methods.
      */
     public static function getSupportedMethods()
     {
         return [
             Remote\Request::METHOD_POST,
-            Remote\Request::METHOD_GET
+            Remote\Request::METHOD_GET,
         ];
     }
 
     /**
-     *
      * Get the properties of the object.  Indexed by constants
      *  [0] - Mandatory
      *  [1] - Type
      *  [2] - PHP type
      *  [3] - Is an Array
-     *  [4] - Saves directly
+     *  [4] - Saves directly.
      *
      * @return array
      */
@@ -116,7 +109,7 @@ class PayItem extends Remote\Model
             'BenefitTypes' => [false, self::PROPERTY_TYPE_OBJECT, 'PayrollUS\\PayItem\\BenefitType', true, false],
             'DeductionTypes' => [false, self::PROPERTY_TYPE_OBJECT, 'PayrollUS\\PayItem\\DeductionType', true, false],
             'ReimbursementTypes' => [false, self::PROPERTY_TYPE_OBJECT, 'PayrollUS\\PayItem\\ReimbursementType', true, false],
-            'TimeOffTypes' => [false, self::PROPERTY_TYPE_OBJECT, 'PayrollUS\\PayItem\\TimeOffType', true, false]
+            'TimeOffTypes' => [false, self::PROPERTY_TYPE_OBJECT, 'PayrollUS\\PayItem\\TimeOffType', true, false],
         ];
     }
 
@@ -127,7 +120,6 @@ class PayItem extends Remote\Model
 
     /**
      * @return EarningsType[]|Remote\Collection
-     * Always returns a collection, switch is for type hinting
      */
     public function getEarningsTypes()
     {
@@ -136,6 +128,7 @@ class PayItem extends Remote\Model
 
     /**
      * @param EarningsType $value
+     *
      * @return PayItem
      */
     public function addEarningsType(EarningsType $value)
@@ -145,12 +138,12 @@ class PayItem extends Remote\Model
             $this->_data['EarningsTypes'] = new Remote\Collection();
         }
         $this->_data['EarningsTypes'][] = $value;
+
         return $this;
     }
 
     /**
      * @return BenefitType[]|Remote\Collection
-     * Always returns a collection, switch is for type hinting
      */
     public function getBenefitTypes()
     {
@@ -159,6 +152,7 @@ class PayItem extends Remote\Model
 
     /**
      * @param BenefitType $value
+     *
      * @return PayItem
      */
     public function addBenefitType(BenefitType $value)
@@ -168,12 +162,12 @@ class PayItem extends Remote\Model
             $this->_data['BenefitTypes'] = new Remote\Collection();
         }
         $this->_data['BenefitTypes'][] = $value;
+
         return $this;
     }
 
     /**
      * @return DeductionType[]|Remote\Collection
-     * Always returns a collection, switch is for type hinting
      */
     public function getDeductionTypes()
     {
@@ -182,6 +176,7 @@ class PayItem extends Remote\Model
 
     /**
      * @param DeductionType $value
+     *
      * @return PayItem
      */
     public function addDeductionType(DeductionType $value)
@@ -191,12 +186,12 @@ class PayItem extends Remote\Model
             $this->_data['DeductionTypes'] = new Remote\Collection();
         }
         $this->_data['DeductionTypes'][] = $value;
+
         return $this;
     }
 
     /**
      * @return ReimbursementType[]|Remote\Collection
-     * Always returns a collection, switch is for type hinting
      */
     public function getReimbursementTypes()
     {
@@ -205,6 +200,7 @@ class PayItem extends Remote\Model
 
     /**
      * @param ReimbursementType $value
+     *
      * @return PayItem
      */
     public function addReimbursementType(ReimbursementType $value)
@@ -214,12 +210,12 @@ class PayItem extends Remote\Model
             $this->_data['ReimbursementTypes'] = new Remote\Collection();
         }
         $this->_data['ReimbursementTypes'][] = $value;
+
         return $this;
     }
 
     /**
      * @return TimeOffType[]|Remote\Collection
-     * Always returns a collection, switch is for type hinting
      */
     public function getTimeOffTypes()
     {
@@ -228,6 +224,7 @@ class PayItem extends Remote\Model
 
     /**
      * @param TimeOffType $value
+     *
      * @return PayItem
      */
     public function addTimeOffType(TimeOffType $value)
@@ -237,6 +234,7 @@ class PayItem extends Remote\Model
             $this->_data['TimeOffTypes'] = new Remote\Collection();
         }
         $this->_data['TimeOffTypes'][] = $value;
+
         return $this;
     }
 }
