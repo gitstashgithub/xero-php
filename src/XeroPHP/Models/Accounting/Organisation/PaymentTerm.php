@@ -87,8 +87,8 @@ class PaymentTerm extends Remote\Model
     public static function getProperties()
     {
         return [
-            'Bills' => [false, self::PROPERTY_TYPE_OBJECT, 'Accounting\\Organisation\\Bill', true, false],
-            'Sales' => [false, self::PROPERTY_TYPE_OBJECT, 'Accounting\\Organisation\\Sale', true, false],
+            'Bills' => [false, self::PROPERTY_TYPE_OBJECT, 'Accounting\\Organisation\\Bill', false, false],
+            'Sales' => [false, self::PROPERTY_TYPE_OBJECT, 'Accounting\\Organisation\\Sale', false, false],
         ];
     }
 
@@ -98,7 +98,7 @@ class PaymentTerm extends Remote\Model
     }
 
     /**
-     * @return Bill[]|Remote\Collection
+     * @return Bill
      */
     public function getBills()
     {
@@ -110,19 +110,16 @@ class PaymentTerm extends Remote\Model
      *
      * @return PaymentTerm
      */
-    public function addBill(Bill $value)
+    public function setBill(Bill $value)
     {
         $this->propertyUpdated('Bills', $value);
-        if (! isset($this->_data['Bills'])) {
-            $this->_data['Bills'] = new Remote\Collection();
-        }
-        $this->_data['Bills'][] = $value;
+        $this->_data['Bills'] = $value;
 
         return $this;
     }
 
     /**
-     * @return Sale[]|Remote\Collection
+     * @return Sale
      */
     public function getSales()
     {
@@ -134,13 +131,10 @@ class PaymentTerm extends Remote\Model
      *
      * @return PaymentTerm
      */
-    public function addSale(Sale $value)
+    public function setSale(Sale $value)
     {
         $this->propertyUpdated('Sales', $value);
-        if (! isset($this->_data['Sales'])) {
-            $this->_data['Sales'] = new Remote\Collection();
-        }
-        $this->_data['Sales'][] = $value;
+        $this->_data['Sales'] = $value;
 
         return $this;
     }

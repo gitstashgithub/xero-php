@@ -182,7 +182,7 @@ class Contact extends Remote\Model
     /**
      * The default payment terms for the contact – see Payment Terms.
      *
-     * @property PaymentTerm[] PaymentTerms
+     * @property PaymentTerm PaymentTerms
      */
 
     /**
@@ -328,7 +328,7 @@ class Contact extends Remote\Model
             'PurchasesTrackingCategories' => [false, self::PROPERTY_TYPE_OBJECT, 'Accounting\\TrackingCategory', true, false],
             'TrackingCategoryName' => [false, self::PROPERTY_TYPE_STRING, null, false, false],
             'TrackingCategoryOption' => [false, self::PROPERTY_TYPE_STRING, null, false, false],
-            'PaymentTerms' => [false, self::PROPERTY_TYPE_OBJECT, 'Accounting\\Organisation\\PaymentTerm', true, false],
+            'PaymentTerms' => [false, self::PROPERTY_TYPE_OBJECT, 'Accounting\\Organisation\\PaymentTerm', false, false],
             'UpdatedDateUTC' => [false, self::PROPERTY_TYPE_TIMESTAMP, '\\DateTimeInterface', false, false],
             'ContactGroups' => [false, self::PROPERTY_TYPE_OBJECT, 'Accounting\\ContactGroup', true, false],
             'Website' => [false, self::PROPERTY_TYPE_STRING, null, false, false],
@@ -918,7 +918,7 @@ class Contact extends Remote\Model
     }
 
     /**
-     * @return PaymentTerm[]|Remote\Collection
+     * @return PaymentTerm
      */
     public function getPaymentTerms()
     {
@@ -930,13 +930,10 @@ class Contact extends Remote\Model
      *
      * @return Contact
      */
-    public function addPaymentTerm(PaymentTerm $value)
+    public function setPaymentTerm(PaymentTerm $value)
     {
         $this->propertyUpdated('PaymentTerms', $value);
-        if (! isset($this->_data['PaymentTerms'])) {
-            $this->_data['PaymentTerms'] = new Remote\Collection();
-        }
-        $this->_data['PaymentTerms'][] = $value;
+        $this->_data['PaymentTerms'] = $value;
 
         return $this;
     }
