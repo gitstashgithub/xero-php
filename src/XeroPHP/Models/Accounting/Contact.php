@@ -809,7 +809,7 @@ class Contact extends Remote\Model
     }
 
     /**
-     * @return TrackingCategory[]|Remote\Collection
+     * @return Remote\Collection|TrackingCategory[]
      */
     public function getSalesTrackingCategories()
     {
@@ -843,7 +843,7 @@ class Contact extends Remote\Model
     }
 
     /**
-     * @return TrackingCategory[]|Remote\Collection
+     * @return Remote\Collection|TrackingCategory[]
      */
     public function getPurchasesTrackingCategories()
     {

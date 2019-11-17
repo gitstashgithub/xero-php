@@ -119,7 +119,7 @@ class PaymentTerm extends Remote\Model
     }
 
     /**
-     * @return Sale
+     * @return Remote\Collection|Sale[]
      */
     public function getSales()
     {
