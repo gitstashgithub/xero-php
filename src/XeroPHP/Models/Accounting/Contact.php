@@ -182,7 +182,7 @@ class Contact extends Remote\Model
     /**
      * The default payment terms for the contact – see Payment Terms.
      *
-     * @property PaymentTerm[] PaymentTerms
+     * @property PaymentTerm PaymentTerms
      */
 
     /**
@@ -328,7 +328,7 @@ class Contact extends Remote\Model
             'PurchasesTrackingCategories' => [false, self::PROPERTY_TYPE_OBJECT, 'Accounting\\TrackingCategory', true, false],
             'TrackingCategoryName' => [false, self::PROPERTY_TYPE_STRING, null, false, false],
             'TrackingCategoryOption' => [false, self::PROPERTY_TYPE_STRING, null, false, false],
-            'PaymentTerms' => [false, self::PROPERTY_TYPE_OBJECT, 'Accounting\\Organisation\\PaymentTerm', true, false],
+            'PaymentTerms' => [false, self::PROPERTY_TYPE_OBJECT, 'Accounting\\Organisation\\PaymentTerm', false, false],
             'UpdatedDateUTC' => [false, self::PROPERTY_TYPE_TIMESTAMP, '\\DateTimeInterface', false, false],
             'ContactGroups' => [false, self::PROPERTY_TYPE_OBJECT, 'Accounting\\ContactGroup', true, false],
             'Website' => [false, self::PROPERTY_TYPE_STRING, null, false, false],
@@ -833,6 +833,16 @@ class Contact extends Remote\Model
     }
 
     /**
+     * @return Contact
+     */
+    public function removeSalesTrackingCategories()
+    {
+        $this->setDirty('SalesTrackingCategories');
+        $this->_data['SalesTrackingCategories'] = new Remote\Collection();
+        return $this;
+    }
+
+    /**
      * @return Remote\Collection|TrackingCategory[]
      */
     public function getPurchasesTrackingCategories()
@@ -853,6 +863,15 @@ class Contact extends Remote\Model
         }
         $this->_data['PurchasesTrackingCategories'][] = $value;
 
+        return $this;
+    }
+
+    /**
+     * @return Contact
+     */
+    public function removePurchasesTrackingCategories(){
+        $this->setDirty('PurchasesTrackingCategories');
+        $this->_data['PurchasesTrackingCategories'] = new Remote\Collection();
         return $this;
     }
 

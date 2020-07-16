@@ -101,11 +101,14 @@ class Response
         switch ($this->status) {
             case self::STATUS_BAD_REQUEST:
                 //This catches actual app errors
-                if (isset($this->root_error) && !empty($this->root_error)) {
-                    $message = sprintf('%s (%s)', $this->root_error['message'], implode(', ', $this->element_errors));
+                if (isset($this->root_error)) {
+                    $message = sprintf('%s (%s)',
+                        array_key_exists('message', $this->root_error) ? $this->root_error['message'] : 'no-root-error',
+                        implode(', ', $this->element_errors)
+                    );
                     $message .= $this->parseBadRequest();
-
-                    throw new BadRequestException($message, $this->root_error['code']);
+                    throw new BadRequestException($message,
+                        array_key_exists('message', $this->root_error) ? $this->root_error['code'] : null);
                 }
 
                 throw new BadRequestException();
