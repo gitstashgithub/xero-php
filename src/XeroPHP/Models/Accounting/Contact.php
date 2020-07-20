@@ -918,7 +918,7 @@ class Contact extends Remote\Model
     }
 
     /**
-     * @return PaymentTerm[]|Remote\Collection
+     * @return PaymentTerm
      */
     public function getPaymentTerms()
     {
@@ -930,13 +930,10 @@ class Contact extends Remote\Model
      *
      * @return Contact
      */
-    public function addPaymentTerm(PaymentTerm $value)
+    public function setPaymentTerm(PaymentTerm $value)
     {
         $this->propertyUpdated('PaymentTerms', $value);
-        if (! isset($this->_data['PaymentTerms'])) {
-            $this->_data['PaymentTerms'] = new Remote\Collection();
-        }
-        $this->_data['PaymentTerms'][] = $value;
+        $this->_data['PaymentTerms'] = $value;
 
         return $this;
     }
