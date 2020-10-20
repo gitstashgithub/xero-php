@@ -150,15 +150,16 @@ class Attachment extends Model
                 }
                 //Otherwise, if it can be fetched
             } elseif (isset($this->_data['Url'])) {
-                $this->content = self::downloadContent($this->_application, $this->_data['Url']);
+                $this->content = self::downloadContent($this->_application, $this->_data['Url'], $this->_data['AttachmentID']);
             }
         }
 
         return $this->content;
     }
 
-    private static function downloadContent(Application $app, $url)
+    private static function downloadContent(Application $app, $url, $attachmentID)
     {
+        $url = preg_replace('#/Attachments/.*$#', '/Attachments/' . $attachmentID, $url);
         $url = new URL($app, $url);
         $request = new Request($app, $url, Request::METHOD_GET);
         $request->setHeader(Request::HEADER_ACCEPT, '*/*');
