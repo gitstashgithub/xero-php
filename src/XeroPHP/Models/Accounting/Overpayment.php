@@ -5,7 +5,7 @@ namespace XeroPHP\Models\Accounting;
 use XeroPHP\Remote;
 use XeroPHP\Traits\HistoryTrait;
 use XeroPHP\Traits\AttachmentTrait;
-use XeroPHP\Models\Accounting\Overpayment\LineItem;
+use XeroPHP\Models\Accounting\LineItem;
 use XeroPHP\Models\Accounting\Overpayment\Allocation;
 
 class Overpayment extends Remote\Model
@@ -211,7 +211,7 @@ class Overpayment extends Remote\Model
             'Date' => [false, self::PROPERTY_TYPE_DATE, '\\DateTimeInterface', false, false],
             'Status' => [false, self::PROPERTY_TYPE_ENUM, null, false, false],
             'LineAmountTypes' => [false, self::PROPERTY_TYPE_ENUM, null, false, false],
-            'LineItems' => [false, self::PROPERTY_TYPE_OBJECT, 'Accounting\\Overpayment\\LineItem', true, false],
+            'LineItems' => [false, self::PROPERTY_TYPE_OBJECT, 'Accounting\\LineItem', true, false],
             'SubTotal' => [false, self::PROPERTY_TYPE_FLOAT, null, false, false],
             'TotalTax' => [false, self::PROPERTY_TYPE_FLOAT, null, false, false],
             'Total' => [false, self::PROPERTY_TYPE_FLOAT, null, false, false],
@@ -224,6 +224,7 @@ class Overpayment extends Remote\Model
             'Allocations' => [false, self::PROPERTY_TYPE_OBJECT, 'Accounting\\Overpayment\\Allocation', true, true],
             'Payments' => [false, self::PROPERTY_TYPE_OBJECT, 'Accounting\\Payment', true, false],
             'HasAttachments' => [false, self::PROPERTY_TYPE_BOOLEAN, null, false, false],
+            'AppliedAmount' => [false, self::PROPERTY_TYPE_FLOAT, null, false, false]
         ];
     }
 
@@ -603,6 +604,14 @@ class Overpayment extends Remote\Model
         return $this;
     }
 
+    /**
+     * @return float
+     */
+    public function getAppliedAmount()
+    {
+        return $this->_data['AppliedAmount'];
+    }
+    
     /**
      * @return Payment[]|Remote\Collection
      */

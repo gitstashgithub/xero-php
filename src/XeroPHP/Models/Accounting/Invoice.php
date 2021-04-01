@@ -8,7 +8,7 @@ use XeroPHP\Traits\PDFTrait;
 use XeroPHP\Traits\HistoryTrait;
 use XeroPHP\Traits\SendEmailTrait;
 use XeroPHP\Traits\AttachmentTrait;
-use XeroPHP\Models\Accounting\Invoice\LineItem;
+use XeroPHP\Models\Accounting\LineItem;
 
 class Invoice extends Remote\Model
 {
@@ -149,6 +149,12 @@ class Invoice extends Remote\Model
      */
 
     /**
+     * See RepeatingInvoices.
+     *
+     * @property string RepeatingInvoiceID
+     */
+
+    /**
      * boolean to indicate if an invoice has an attachment.
      *
      * @property bool HasAttachments
@@ -223,10 +229,19 @@ class Invoice extends Remote\Model
 
     const INVOICE_STATUS_VOIDED = 'VOIDED';
 
+    /**
+     * @deprecated Use \XeroPHP\Models\Accounting\LineItem::LINEAMOUNT_TYPE_EXCLUSIVE instead.
+     */
     const LINEAMOUNT_TYPE_EXCLUSIVE = 'Exclusive';
 
+    /**
+     * @deprecated Use \XeroPHP\Models\Accounting\LineItem::LINEAMOUNT_TYPE_INCLUSIVE instead.
+     */
     const LINEAMOUNT_TYPE_INCLUSIVE = 'Inclusive';
 
+    /**
+     * @deprecated Use \XeroPHP\Models\Accounting\LineItem::LINEAMOUNT_TYPE_NOTAX instead.
+     */
     const LINEAMOUNT_TYPE_NOTAX = 'NoTax';
 
     /**
@@ -296,7 +311,7 @@ class Invoice extends Remote\Model
         return [
             'Type' => [true, self::PROPERTY_TYPE_ENUM, null, false, false],
             'Contact' => [true, self::PROPERTY_TYPE_OBJECT, 'Accounting\\Contact', false, false],
-            'LineItems' => [true, self::PROPERTY_TYPE_OBJECT, 'Accounting\\Invoice\\LineItem', true, false],
+            'LineItems' => [true, self::PROPERTY_TYPE_OBJECT, 'Accounting\\LineItem', true, false],
             'Date' => [false, self::PROPERTY_TYPE_DATE, '\\DateTimeInterface', false, false],
             'DueDate' => [false, self::PROPERTY_TYPE_DATE, '\\DateTimeInterface', false, false],
             'LineAmountTypes' => [false, self::PROPERTY_TYPE_ENUM, null, false, false],
@@ -315,6 +330,7 @@ class Invoice extends Remote\Model
             'Total' => [false, self::PROPERTY_TYPE_FLOAT, null, false, false],
             'TotalDiscount' => [false, self::PROPERTY_TYPE_FLOAT, null, false, false],
             'InvoiceID' => [false, self::PROPERTY_TYPE_STRING, null, false, false],
+            'RepeatingInvoiceID' => [false, self::PROPERTY_TYPE_STRING, null, false, false],
             'HasAttachments' => [false, self::PROPERTY_TYPE_BOOLEAN, null, false, false],
             'Payments' => [false, self::PROPERTY_TYPE_OBJECT, 'Accounting\\Payment', true, false],
             'Prepayments' => [false, self::PROPERTY_TYPE_OBJECT, 'Accounting\\Prepayment', true, false],
@@ -725,6 +741,27 @@ class Invoice extends Remote\Model
     {
         $this->propertyUpdated('InvoiceID', $value);
         $this->_data['InvoiceID'] = $value;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getRepeatingInvoiceID()
+    {
+        return $this->_data['RepeatingInvoiceID'];
+    }
+
+    /**
+     * @param string $value
+     *
+     * @return Invoice
+     */
+    public function setRepeatingInvoiceID($value)
+    {
+        $this->propertyUpdated('RepeatingInvoiceID', $value);
+        $this->_data['RepeatingInvoiceID'] = $value;
 
         return $this;
     }
