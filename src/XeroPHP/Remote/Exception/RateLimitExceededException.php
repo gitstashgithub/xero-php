@@ -18,8 +18,12 @@ class RateLimitExceededException extends Exception
     {
         $headers = array_change_key_case($headers, CASE_LOWER);
 
-        $problem = isset($headers['x-rate-limit-problem']) ? current($headers['x-rate-limit-problem']) : null;
-        $retryAfter = isset($headers['retry-after']) ? current($headers['retry-after']) : null;
+        $problem = isset($headers['x-rate-limit-problem'])
+            ? (is_array($headers['x-rate-limit-problem']) ? current($headers['x-rate-limit-problem']) : $headers['x-rate-limit-problem'])
+            : null;
+        $retryAfter = isset($headers['retry-after'])
+            ? (is_array($headers['retry-after']) ? current($headers['retry-after']) : $headers['retry-after'])
+            : null;
 
         $exception = new self();
         $exception->setRateLimitProblem($problem);
